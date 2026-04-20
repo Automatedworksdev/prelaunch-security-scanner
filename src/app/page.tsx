@@ -19,6 +19,8 @@ interface ScanResult {
   success: true;
   score: number;
   issues: Issue[];
+  summary: string;
+  priorityIssue: Issue | null;
 }
 
 interface ScanError {
@@ -135,29 +137,25 @@ export default function Home() {
                   </span>
                   <h3 className="font-bold text-gray-900 text-lg">{issue.name}</h3>
                 </div>
-                <div className="ml-3 space-y-3">
-                  <p className="text-gray-600 text-sm">
-                    <span className="font-semibold">Why:</span> {issue.description}
-                  </p>
-                  {issue.fix && (
-                    <>
-                      <div className="flex items-start gap-2">
-                        <p className="text-gray-600 text-sm flex-1">
-                          <span className="font-semibold">Fix:</span> {issue.fix.fix}
-                        </p>
-                        <button
-                          onClick={() => issue.fix && copyToClipboard(issue.fix.fix, issueId)}
-                          className="px-3 py-1 bg-blue-50 text-blue-600 text-xs rounded border border-blue-200 hover:bg-blue-100 transition-colors"
-                        >
-                          {copiedId === issueId ? 'Copied!' : 'Copy Fix'}
-                        </button>
+                <p className="text-gray-600 text-sm mb-4">{issue.description}</p>
+                {issue.fix && (
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-2">
+                      <div className="flex-1 bg-gray-100 rounded-lg p-3 font-mono text-sm">
+                        {issue.fix.fix}
                       </div>
-                      <p className="text-gray-500 text-sm">
-                        <span className="font-semibold">Where:</span> {issue.fix.where}
-                      </p>
-                    </>
-                  )}
-                </div>
+                      <button
+                        onClick={() => issue.fix && copyToClipboard(issue.fix.fix, issueId)}
+                        className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors"
+                      >
+                        {copiedId === issueId ? 'Copied!' : 'Copy'}
+                      </button>
+                    </div>
+                    <p className="text-gray-500 text-sm">
+                      <span className="font-medium">Where:</span> {issue.fix.where}
+                    </p>
+                  </div>
+                )}
               </div>
             );
           })}
@@ -207,18 +205,18 @@ export default function Home() {
         {result && (
           <div className="bg-white rounded-xl shadow-sm border border-gray-200">
             <div className="p-10 text-center border-b">
-              <div className={`text-7xl font-bold mb-4 ${getScoreColor(result.score)}`}>
+              <div className={`text-7xl font-bold mb-2 ${getScoreColor(result.score)}`}>
                 {result.score}
               </div>
               <div className="text-lg text-gray-500 mb-4">Security Score</div>
 
               {result.score < 80 ? (
                 <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4">
-                  <p className="text-amber-800">⚠️ Some vulnerabilities detected that may expose user data</p>
+                  <p className="text-amber-800 font-medium">⚠️ Fix the issues below to protect your users</p>
                 </div>
               ) : (
                 <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
-                  <p className="text-green-800">✅ Your site appears secure</p>
+                  <p className="text-green-800 font-medium">✅ Your site is well protected</p>
                 </div>
               )}
 

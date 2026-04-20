@@ -22,32 +22,32 @@ interface ScanResult {
 
 const issueFixData: Record<string, { why: string; fix: string; where: string }> = {
   'Invalid SSL Certificate': {
-    why: 'Unencrypted data transmission allows attackers to intercept sensitive information',
-    fix: 'Renew SSL certificate or switch to a trusted Certificate Authority',
-    where: 'Your web hosting provider or SSL vendor'
+    why: 'Attackers can intercept user data sent to your site',
+    fix: 'Renew SSL certificate or switch to a trusted provider',
+    where: 'Your hosting provider or SSL vendor'
   },
   'Missing HSTS Header': {
-    why: 'Allows attackers to perform downgrade attacks on HTTPS connections',
+    why: 'Attackers can downgrade HTTPS connections to steal data',
     fix: 'Strict-Transport-Security: max-age=31536000; includeSubDomains',
     where: 'Server config (Nginx, Apache) or web framework'
   },
   'Missing CSP Header': {
-    why: 'Enables cross-site scripting (XSS) attacks by allowing untrusted scripts',
+    why: 'Attackers can inject malicious scripts into your site',
     fix: "Content-Security-Policy: default-src 'self'; script-src 'self'",
     where: 'Server headers or web framework middleware'
   },
   'Missing X-Frame-Options': {
-    why: 'Allows clickjacking attacks where users are tricked into clicking hidden elements',
-    fix: 'X-Frame-Options: DENY (or SAMEORIGIN if framing is needed)',
+    why: 'Your site can be embedded in malicious pages',
+    fix: 'X-Frame-Options: DENY',
     where: 'Server headers or web framework'
   },
   'Missing X-Content-Type-Options': {
-    why: 'Browsers may execute files as code via MIME type sniffing',
+    why: 'Browsers may execute files as dangerous code',
     fix: 'X-Content-Type-Options: nosniff',
     where: 'Server headers or web framework'
   },
   'Missing Referrer-Policy': {
-    why: 'Leakes sensitive URL data when linking to external sites',
+    why: 'Sensitive URLs can leak to external websites',
     fix: 'Referrer-Policy: strict-origin-when-cross-origin',
     where: 'Server headers or web framework'
   }
