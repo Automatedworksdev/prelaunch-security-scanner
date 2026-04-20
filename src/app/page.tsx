@@ -32,6 +32,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<ScanResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const getSeverityIcon = (severity: string) => {
     switch (severity) {
@@ -101,6 +102,13 @@ export default function Home() {
     }
   };
 
+  const copyToClipboard = (text: string, issueId: string) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopiedId(issueId);
+      setTimeout(() => setCopiedId(null), 2000);
+    });
+  };
+
   const groupedIssues = result ? {
     critical: result.issues.filter(i => i.severity === 'critical'),
     high: result.issues.filter(i => i.severity === 'high'),
@@ -117,31 +125,42 @@ export default function Home() {
           <span className="bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full text-sm">{issues.length}</span>
         </div>
         <div className="space-y-4">
-          {issues.map((issue, i) => (
-            <div key={i} className="bg-white border border-gray-200 rounded-lg p-5">
-              <div className="flex items-start gap-3 mb-3">
-                <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ${getSeverityColor(issue.severity)}`}>
-                  {getSeverityIcon(issue.severity)} {issue.severity.charAt(0).toUpperCase() + issue.severity.slice(1)}
-                </span>
-                <h3 className="font-bold text-gray-900 text-lg">{issue.name}</h3>
+          {issues.map((issue, i) => {
+            const issueId = `${issue.name}-${i}`;
+            return (
+              <div key={i} className="bg-white border border-gray-200 rounded-lg p-5">
+                <div className="flex items-start gap-3 mb-3">
+                  <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ${getSeverityColor(issue.severity)}`}>
+                    {getSeverityIcon(issue.severity)} {issue.severity.charAt(0).toUpperCase() + issue.severity.slice(1)}
+                  </span>
+                  <h3 className="font-bold text-gray-900 text-lg">{issue.name}</h3>
+                </div>
+                <div className="ml-3 space-y-3">
+                  <p className="text-gray-600 text-sm">
+                    <span className="font-semibold">Why:</span> {issue.description}
+                  </p>
+                  {issue.fix && (
+                    <>
+                      <div className="flex items-start gap-2">
+                        <p className="text-gray-600 text-sm flex-1">
+                          <span className="font-semibold">Fix:</span> {issue.fix.fix}
+                        </p>
+                        <button
+                          onClick={() => issue.fix && copyToClipboard(issue.fix.fix, issueId)}
+                          className="px-3 py-1 bg-blue-50 text-blue-600 text-xs rounded border border-blue-200 hover:bg-blue-100 transition-colors"
+                        >
+                          {copiedId === issueId ? 'Copied!' : 'Copy Fix'}
+                        </button>
+                      </div>
+                      <p className="text-gray-500 text-sm">
+                        <span className="font-semibold">Where:</span> {issue.fix.where}
+                      </p>
+                    </>
+                  )}
+                </div>
               </div>
-              <div className="ml-3 space-y-3">
-                <p className="text-gray-600 text-sm">
-                  <span className="font-semibold">Why:</span> {issue.description}
-                </p>
-                {issue.fix && (
-                  <>
-                    <p className="text-gray-600 text-sm">
-                      <span className="font-semibold">Fix:</span> {issue.fix.fix}
-                    </p>
-                    <p className="text-gray-500 text-sm">
-                      <span className="font-semibold">Where:</span> {issue.fix.where}
-                    </p>
-                  </>
-                )}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     );
