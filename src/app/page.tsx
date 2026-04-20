@@ -26,18 +26,23 @@ export default function Home() {
   const [result, setResult] = useState<ScanResult | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  const getSeverityIcon = (severity: string) => {
+    switch (severity) {
+      case 'critical': return '🔴';
+      case 'high': return '🟠';
+      case 'medium': return '🟡';
+      case 'low': return '🔵';
+      default: return '⚪';
+    }
+  };
+
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'critical':
-        return 'text-red-600 bg-red-50 border-red-200';
-      case 'high':
-        return 'text-orange-600 bg-orange-50 border-orange-200';
-      case 'medium':
-        return 'text-yellow-600 bg-yellow-50 border-yellow-200';
-      case 'low':
-        return 'text-blue-600 bg-blue-50 border-blue-200';
-      default:
-        return 'text-gray-600 bg-gray-50 border-gray-200';
+      case 'critical': return 'bg-red-100 text-red-800 border-red-300';
+      case 'high': return 'bg-orange-100 text-orange-800 border-orange-300';
+      case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-300';
+      case 'low': return 'bg-blue-100 text-blue-800 border-blue-300';
+      default: return 'bg-gray-100 text-gray-800 border-gray-300';
     }
   };
 
@@ -79,126 +84,149 @@ export default function Home() {
 
       const data: ScanResult | ScanError = await response.json();
 
-      if (!data.success) {
-        setError(data.error);
-      } else {
-        setResult(data);
-      }
-    } catch (err) {
+      if (!data.success) setError(data.error);
+      else setResult(data);
+
+    } catch {
       setError('Failed to connect to scanner. Please try again.');
     } finally {
       setLoading(false);
     }
   };
 
+  const groupedIssues = result ? {
+    critical: result.issues.filter(i => i.severity === 'critical'),
+    high: result.issues.filter(i => i.severity === 'high'),
+    medium: result.issues.filter(i => i.severity === 'medium'),
+    low: result.issues.filter(i => i.severity === 'low'),
+  } : null;
+
+  const renderIssueSection = (severity: string, issues: Issue[]) => {
+    if (issues.length === 0) return null;
+    return (
+      <div className="mb-8">
+        <div className="flex items-center gap-2 mb-4">
+          <span className="text-lg font-semibold">{getSeverityIcon(severity)} {severity.charAt(0).toUpperCase() + severity.slice(1)} Issues</span>
+          <span className="bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full text-sm">{issues.length}</span>
+        </div>
+        <div className="space-y-4">
+          {issues.map((issue, i) => (
+            <div key={i} className="bg-white border border-gray-200 rounded-lg p-5">
+              <div className="flex items-start gap-3 mb-3">
+                <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ${getSeverityColor(issue.severity)}`}>
+                  {getSeverityIcon(issue.severity)} {issue.severity.charAt(0).toUpperCase() + issue.severity.slice(1)}
+                </span>
+                <h3 className="font-bold text-gray-900 text-lg">{issue.name}</h3>
+              </div>
+              <div className="ml-3">
+                <p className="text-gray-600 text-sm mb-2">
+                  <span className="font-medium">Why it matters:</span> {issue.description}
+                </p>
+                <p className="text-gray-500 text-sm">
+                  <span className="font-medium">Fix:</span> Recommended fix will appear here
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-2xl mx-auto">
-        <div className="text-center mb-10">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 mb-3">
             PreLaunch Security Scanner
           </h1>
-          <p className="text-gray-600">
-            Check your site&apos;s security before launch
+          <p className="text-gray-600 text-lg">
+            Instant security scan for your website
           </p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
           <form onSubmit={handleSubmit} className="flex gap-3">
             <input
-              type="text"
               value={url}
-              onChange={(e) => {
-                setUrl(e.target.value);
-                setError(null);
-              }}
+              onChange={(e) => { setUrl(e.target.value); setError(null); }}
               placeholder="Enter website URL (e.g. example.com)"
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
               disabled={loading}
             />
             <button
               type="submit"
               disabled={loading || !url.trim()}
-              className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
             >
               {loading ? 'Scanning...' : 'Scan'}
             </button>
           </form>
         </div>
 
-        {loading && (
-          <div className="text-center py-12">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-4"></div>
-            <p className="text-gray-600">Scanning...</p>
-          </div>
-        )}
-
         {error && (
-          <div className="bg-red-50 border border-red-200 rounded-xl p-6">
-            <div className="flex items-start gap-3">
-              <span className="text-red-600 text-xl">⚠</span>
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-1">Scan Failed</h3>
-                <p className="text-red-700">{error}</p>
-              </div>
-            </div>
+          <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-6">
+            <p className="text-red-700">{error}</p>
           </div>
         )}
 
         {result && (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-            <div className="p-8 text-center border-b border-gray-100">
-              <div className={`text-6xl font-bold mb-2 ${getScoreColor(result.score)}`}>
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200">
+            <div className="p-10 text-center border-b">
+              <div className={`text-7xl font-bold mb-4 ${getScoreColor(result.score)}`}>
                 {result.score}
               </div>
-              <div className="text-gray-500 font-medium uppercase tracking-wide text-sm">
-                Security Score (0–100)
-              </div>
-              {scannedUrl && (
-                <div className="mt-3 text-sm text-gray-600">
-                  Scanned: <span className="font-mono text-gray-800">{scannedUrl}</span>
+              <div className="text-lg text-gray-500 mb-4">Security Score</div>
+
+              {result.score < 80 ? (
+                <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4">
+                  <p className="text-amber-800">⚠️ Some vulnerabilities detected that may expose user data</p>
+                </div>
+              ) : (
+                <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                  <p className="text-green-800">✅ Your site appears secure</p>
                 </div>
               )}
+
+              <div className="text-sm text-gray-500">
+                Scanned: {scannedUrl}
+              </div>
             </div>
 
             {result.issues.length > 0 ? (
-              <div className="divide-y divide-gray-100">
-                {result.issues.map((issue, index) => (
-                  <div key={index} className="p-6">
-                    <div className="flex items-start gap-4">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${getSeverityColor(issue.severity)}`}>
-                        {issue.severity.charAt(0).toUpperCase() + issue.severity.slice(1)}
-                      </span>
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-gray-900 mb-1">
-                          {issue.name}
-                        </h3>
-                        <p className="text-gray-600 text-sm">
-                          {issue.description}
-                        </p>
-                      </div>
-                    </div>
+              <div className="p-8">
+                {groupedIssues && (
+                  <>
+                    {renderIssueSection('critical', groupedIssues.critical)}
+                    {renderIssueSection('high', groupedIssues.high)}
+                    {renderIssueSection('medium', groupedIssues.medium)}
+                    {renderIssueSection('low', groupedIssues.low)}
+                  </>
+                )}
+
+                <div className="mt-8 pt-6 border-t">
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
+                    <p className="text-blue-800">🔧 Fix these issues to improve your score and protect users</p>
                   </div>
-                ))}
+                </div>
               </div>
             ) : (
-              <div className="p-8 text-center">
-                <div className="text-green-600 text-4xl mb-3">✓</div>
-                <h3 className="font-semibold text-gray-900 mb-1">No Issues Found</h3>
-                <p className="text-gray-600">Your site passed all security checks.</p>
+              <div className="p-10 text-center">
+                <div className="text-green-600 text-5xl mb-4">✓</div>
+                <p className="text-xl font-semibold text-gray-900 mb-2">Your site looks secure</p>
+                <p className="text-gray-600">No major security issues detected</p>
               </div>
             )}
 
-            <div className="p-6 bg-gray-50 border-t border-gray-100">
-              <button
-                onClick={handleReset}
-                className="w-full py-3 bg-white border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
-              >
+            <div className="p-6 bg-gray-50 border-t">
+              <button onClick={handleReset} className="w-full border-2 border-gray-300 p-3 rounded-lg hover:bg-gray-100 transition-colors">
                 Scan another site
               </button>
             </div>
           </div>
         )}
+
       </div>
     </div>
   );
