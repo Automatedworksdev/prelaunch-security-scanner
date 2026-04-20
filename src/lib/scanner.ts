@@ -20,6 +20,8 @@ interface ScanResult {
   priorityIssue: Issue | null;
 }
 
+const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY || '';
+
 const issueFixData: Record<string, { why: string; fix: string; where: string }> = {
   'Invalid SSL Certificate': {
     why: 'Attackers can intercept user data sent to your site',
@@ -123,6 +125,59 @@ async function checkHeaders(url: string): Promise<Record<string, string | undefi
     };
   } catch (error) {
     return {};
+  }
+}
+
+async function enhanceDescription(issue: Issue): Promise<string> {
+  if (!OPENROUTER_API_KEY) {
+    return issue.description;
+  }
+
+  try {
+    const timeoutPromise = new Promise<never>((_, reject) => {
+      setTimeout(() => reject(new Error('AI timeout')), 3000);
+    });
+
+    const apiPromise = axios.post(
+      'https://openrouter.ai/api/v1/chat/completions',
+      {
+        model: 'openai/gpt-4o-mini',
+        messages: [
+          {
+            role: 'user',
+            content: `Explain this security issue simply for a non-technical user in 2 sentences max.
+
+Issue: ${issue.name}
+Description: ${issue.description}
+
+Focus on:
+- what the risk is
+- what could happen if ignored
+
+Keep it short and clear. No technical jargon.`
+          }
+        ],
+        max_tokens: 100,
+        temperature: 0.3
+      },
+      {
+        headers: {
+          'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        timeout: 3000
+      }
+    );
+
+    const response = await Promise.race([apiPromise, timeoutPromise]);
+    const enhanced = response.data.choices[0]?.message?.content?.trim();
+    
+    if (enhanced && enhanced.length > 10) {
+      return enhanced;
+    }
+    return issue.description;
+  } catch {
+    return issue.description;
   }
 }
 
@@ -254,10 +309,18 @@ export async function scanUrl(url: string): Promise<ScanResult | { success: fals
     
     score = Math.max(score, 0);
     
-    const summary = generateSummary(issues);
-    const priorityIssue = getPriorityIssue(issues);
+    // Enhance descriptions with AI (parallel, with timeout)
+    const enhancedIssues = await Promise.all(
+      issues.map(async (issue) => ({
+        ...issue,
+        description: await enhanceDescription(issue)
+      }))
+    );
     
-    return { success: true, score, issues, summary, priorityIssue };
+    const summary = generateSummary(enhancedIssues);
+    const priorityIssue = getPriorityIssue(enhancedIssues);
+    
+    return { success: true, score, issues: enhancedIssues, summary, priorityIssue };
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
     
