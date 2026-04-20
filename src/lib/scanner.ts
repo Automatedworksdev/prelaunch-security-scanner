@@ -16,6 +16,8 @@ interface ScanResult {
   success: true;
   score: number;
   issues: Issue[];
+  summary: string;
+  priorityIssue: Issue | null;
 }
 
 const issueFixData: Record<string, { why: string; fix: string; where: string }> = {
@@ -124,7 +126,31 @@ async function checkHeaders(url: string): Promise<Record<string, string | undefi
   }
 }
 
-export async function scanUrl(url: string): Promise<{ success: true; score: number; issues: Issue[] } | { success: false; error: string }> {
+function generateSummary(issues: Issue[]): string {
+  const highCount = issues.filter(i => i.severity === 'critical' || i.severity === 'high').length;
+  const mediumCount = issues.filter(i => i.severity === 'medium').length;
+  const lowCount = issues.filter(i => i.severity === 'low').length;
+
+  if (highCount > 0) {
+    return `Your site has ${highCount} high-risk issue${highCount > 1 ? 's' : ''} that may expose users to attacks`;
+  } else if (mediumCount > 0) {
+    return `Your site has ${mediumCount} medium-risk issue${mediumCount > 1 ? 's' : ''} to address`;
+  } else if (lowCount > 0) {
+    return `No major risks detected`;
+  }
+  return `No major risks detected`;
+}
+
+function getPriorityIssue(issues: Issue[]): Issue | null {
+  const severityOrder = ['critical', 'high', 'medium', 'low'];
+  for (const severity of severityOrder) {
+    const found = issues.find(i => i.severity === severity);
+    if (found) return found;
+  }
+  return null;
+}
+
+export async function scanUrl(url: string): Promise<ScanResult | { success: false; error: string }> {
   const normalizedUrl = normalizeUrl(url);
   
   let score = 100;
@@ -228,7 +254,10 @@ export async function scanUrl(url: string): Promise<{ success: true; score: numb
     
     score = Math.max(score, 0);
     
-    return { success: true, score, issues };
+    const summary = generateSummary(issues);
+    const priorityIssue = getPriorityIssue(issues);
+    
+    return { success: true, score, issues, summary, priorityIssue };
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
     
