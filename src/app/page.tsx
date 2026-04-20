@@ -2,10 +2,17 @@
 
 import { useState } from 'react';
 
+interface Fix {
+  why: string;
+  fix: string;
+  where: string;
+}
+
 interface Issue {
   name: string;
   severity: 'critical' | 'high' | 'medium' | 'low';
   description: string;
+  fix?: Fix;
 }
 
 interface ScanResult {
@@ -118,13 +125,20 @@ export default function Home() {
                 </span>
                 <h3 className="font-bold text-gray-900 text-lg">{issue.name}</h3>
               </div>
-              <div className="ml-3">
-                <p className="text-gray-600 text-sm mb-2">
-                  <span className="font-medium">Why it matters:</span> {issue.description}
+              <div className="ml-3 space-y-3">
+                <p className="text-gray-600 text-sm">
+                  <span className="font-semibold">Why:</span> {issue.description}
                 </p>
-                <p className="text-gray-500 text-sm">
-                  <span className="font-medium">Fix:</span> Recommended fix will appear here
-                </p>
+                {issue.fix && (
+                  <>
+                    <p className="text-gray-600 text-sm">
+                      <span className="font-semibold">Fix:</span> {issue.fix.fix}
+                    </p>
+                    <p className="text-gray-500 text-sm">
+                      <span className="font-semibold">Where:</span> {issue.fix.where}
+                    </p>
+                  </>
+                )}
               </div>
             </div>
           ))}

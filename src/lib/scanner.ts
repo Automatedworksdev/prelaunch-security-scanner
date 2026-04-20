@@ -5,7 +5,51 @@ interface Issue {
   name: string;
   severity: 'critical' | 'high' | 'medium' | 'low';
   description: string;
+  fix?: {
+    why: string;
+    fix: string;
+    where: string;
+  };
 }
+
+interface ScanResult {
+  success: true;
+  score: number;
+  issues: Issue[];
+}
+
+const issueFixData: Record<string, { why: string; fix: string; where: string }> = {
+  'Invalid SSL Certificate': {
+    why: 'Unencrypted data transmission allows attackers to intercept sensitive information',
+    fix: 'Renew SSL certificate or switch to a trusted Certificate Authority',
+    where: 'Your web hosting provider or SSL vendor'
+  },
+  'Missing HSTS Header': {
+    why: 'Allows attackers to perform downgrade attacks on HTTPS connections',
+    fix: 'Strict-Transport-Security: max-age=31536000; includeSubDomains',
+    where: 'Server config (Nginx, Apache) or web framework'
+  },
+  'Missing CSP Header': {
+    why: 'Enables cross-site scripting (XSS) attacks by allowing untrusted scripts',
+    fix: "Content-Security-Policy: default-src 'self'; script-src 'self'",
+    where: 'Server headers or web framework middleware'
+  },
+  'Missing X-Frame-Options': {
+    why: 'Allows clickjacking attacks where users are tricked into clicking hidden elements',
+    fix: 'X-Frame-Options: DENY (or SAMEORIGIN if framing is needed)',
+    where: 'Server headers or web framework'
+  },
+  'Missing X-Content-Type-Options': {
+    why: 'Browsers may execute files as code via MIME type sniffing',
+    fix: 'X-Content-Type-Options: nosniff',
+    where: 'Server headers or web framework'
+  },
+  'Missing Referrer-Policy': {
+    why: 'Leakes sensitive URL data when linking to external sites',
+    fix: 'Referrer-Policy: strict-origin-when-cross-origin',
+    where: 'Server headers or web framework'
+  }
+};
 
 function normalizeUrl(url: string): string {
   let normalized = url.trim().toLowerCase();
@@ -94,55 +138,91 @@ export async function scanUrl(url: string): Promise<{ success: true; score: numb
     
     if (!sslResult.valid) {
       score -= 30;
+      const fixData = issueFixData['Invalid SSL Certificate'];
       issues.push({
         name: 'Invalid SSL Certificate',
         severity: 'critical',
-        description: 'SSL certificate is invalid or expired. Data transmission is not secure.'
+        description: fixData.why,
+        fix: {
+          why: fixData.why,
+          fix: fixData.fix,
+          where: fixData.where
+        }
       });
     }
     
     if (!headers['strict-transport-security']) {
       score -= 20;
+      const fixData = issueFixData['Missing HSTS Header'];
       issues.push({
         name: 'Missing HSTS Header',
         severity: 'high',
-        description: 'Strict-Transport-Security header is missing. Site may be vulnerable to downgrade attacks.'
+        description: fixData.why,
+        fix: {
+          why: fixData.why,
+          fix: fixData.fix,
+          where: fixData.where
+        }
       });
     }
     
     if (!headers['content-security-policy']) {
       score -= 20;
+      const fixData = issueFixData['Missing CSP Header'];
       issues.push({
         name: 'Missing CSP Header',
         severity: 'high',
-        description: 'Content-Security-Policy header is missing. Site is more vulnerable to XSS attacks.'
+        description: fixData.why,
+        fix: {
+          why: fixData.why,
+          fix: fixData.fix,
+          where: fixData.where
+        }
       });
     }
     
     if (!headers['x-frame-options']) {
       score -= 15;
+      const fixData = issueFixData['Missing X-Frame-Options'];
       issues.push({
         name: 'Missing X-Frame-Options',
         severity: 'medium',
-        description: 'X-Frame-Options header is missing. Site may be vulnerable to clickjacking.'
+        description: fixData.why,
+        fix: {
+          why: fixData.why,
+          fix: fixData.fix,
+          where: fixData.where
+        }
       });
     }
     
     if (!headers['x-content-type-options']) {
       score -= 10;
+      const fixData = issueFixData['Missing X-Content-Type-Options'];
       issues.push({
         name: 'Missing X-Content-Type-Options',
         severity: 'low',
-        description: 'X-Content-Type-Options header is missing. MIME type sniffing is possible.'
+        description: fixData.why,
+        fix: {
+          why: fixData.why,
+          fix: fixData.fix,
+          where: fixData.where
+        }
       });
     }
     
     if (!headers['referrer-policy']) {
       score -= 5;
+      const fixData = issueFixData['Missing Referrer-Policy'];
       issues.push({
         name: 'Missing Referrer-Policy',
         severity: 'low',
-        description: 'Referrer-Policy header is missing. May leak sensitive URL data to third parties.'
+        description: fixData.why,
+        fix: {
+          why: fixData.why,
+          fix: fixData.fix,
+          where: fixData.where
+        }
       });
     }
     
