@@ -322,7 +322,7 @@ export default function Home() {
             )}
 
             <div className="p-6 bg-gray-50 border-t">
-              <button onClick={handleReset} className="w-full border-2 border-gray-300 p-3 rounded-lg hover:bg-gray-100 transition-colors">
+              <button onClick={handleReset} className="w-full bg-white border border-gray-300 text-gray-900 rounded-xl py-3 font-medium hover:bg-gray-50 active:scale-95 transition-all duration-150">
                 Scan another site
               </button>
             </div>
