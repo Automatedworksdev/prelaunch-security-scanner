@@ -216,16 +216,31 @@ export default function Home() {
                 {result.score}
               </div>
               <div className="text-lg text-gray-500 mb-4">Security Score</div>
+              <p className="text-sm text-gray-600 mt-2">
+                {result.score < 60 
+                  ? "Your site has serious security gaps"
+                  : result.score < 80
+                  ? "Your site needs improvement"
+                  : "Your site is well protected"}
+              </p>
 
-              {result.score < 80 ? (
-                <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4">
-                  <p className="text-amber-800 font-medium">⚠️ Fix the issues below to protect your users</p>
-                </div>
-              ) : (
-                <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
-                  <p className="text-green-800 font-medium">✅ Your site is well protected</p>
+              {result.priorityIssue && (
+                <div className="bg-white border border-gray-200 rounded-xl p-4 mt-4 mb-6">
+                  <p className="text-sm text-gray-500 mb-1">Top Priority Fix</p>
+                  <h3 className="font-semibold text-gray-900">
+                    {result.priorityIssue.name}
+                  </h3>
+                  <p className="text-gray-600 text-sm mt-1">
+                    {result.priorityIssue.description}
+                  </p>
                 </div>
               )}
+
+              <div className={`rounded-lg p-4 mb-4 ${result.score < 80 ? 'bg-amber-50 border border-amber-200' : 'bg-green-50 border border-green-200'}`}>
+                <p className={`font-medium ${result.score < 80 ? 'text-amber-800' : 'text-green-800'}`}>
+                  {result.score < 80 ? '⚠️ ' : '✅ '} {result.summary}
+                </p>
+              </div>
 
               <div className="text-sm text-gray-500">
                 Scanned: {scannedUrl}
