@@ -225,24 +225,18 @@ export default function Home() {
               </p>
 
               {result.priorityIssue && (
-                <div className="bg-white border border-gray-200 rounded-xl p-4 mt-4 mb-6">
-                  <p className="text-sm text-gray-500 mb-1">Top Priority Fix</p>
+                <div className="bg-red-50 border border-red-200 rounded-xl p-4 mt-4 mb-6">
+                  <p className="text-sm text-red-600 font-medium mb-1">Fix This First</p>
                   <h3 className="font-semibold text-gray-900">
                     {result.priorityIssue.name}
                   </h3>
-                  <p className="text-gray-600 text-sm mt-1">
+                  <p className="text-gray-700 text-sm mt-1">
                     {result.priorityIssue.description}
                   </p>
                 </div>
               )}
 
-              <div className={`rounded-lg p-4 mb-4 ${result.score < 80 ? 'bg-amber-50 border border-amber-200' : 'bg-green-50 border border-green-200'}`}>
-                <p className={`font-medium ${result.score < 80 ? 'text-amber-800' : 'text-green-800'}`}>
-                  {result.score < 80 ? '⚠️ ' : '✅ '} {result.summary}
-                </p>
-              </div>
-
-              <div className="text-sm text-gray-500">
+              <div className="text-sm text-gray-500 mt-4">
                 Scanned: {scannedUrl}
               </div>
             </div>
