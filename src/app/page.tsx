@@ -176,16 +176,16 @@ export default function Home() {
                 {issue.fix && (
                   <div className="space-y-2">
                     <div className="text-xs uppercase tracking-wide text-gray-400 mb-2">Fix (copy and apply)</div>
-                    <div className="bg-gray-900 text-green-400 text-xs font-mono rounded-lg p-3 border border-gray-800/40">
+                    <div className="bg-gray-900 text-green-400 text-xs font-mono rounded-lg p-3 border border-gray-800/40 leading-relaxed overflow-x-auto">
                       {issue.fix.fix}
                     </div>
                     <button
                       onClick={() => issue.fix && copyToClipboard(issue.fix.fix, issueId)}
-                      className="mt-2 w-full px-4 py-2 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600 transition-colors"
+                      className="mt-2 w-full px-4 py-2 bg-blue-500/90 text-white text-sm rounded-lg shadow-sm hover:bg-blue-500 active:scale-95 transition-all duration-200"
                     >
                       {copiedId === issueId ? 'Copied ✓' : 'Copy'}
                     </button>
-                    <p className="text-xs text-gray-400 mt-1">
+                    <p className="text-xs text-gray-400 mt-1 leading-relaxed">
                       <span className="font-medium">Where:</span> {issue.fix.where}
                     </p>
                   </div>
