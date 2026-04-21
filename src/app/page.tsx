@@ -142,7 +142,7 @@ export default function Home() {
                   <div className="space-y-3">
                     <div className="text-xs text-gray-500 uppercase mb-2">Fix (copy and apply):</div>
                     <div className="flex items-start gap-2">
-                      <div className="flex-1 bg-black text-green-400 font-mono text-sm p-4 rounded-lg border border-gray-700">
+                      <div className="bg-gray-900 text-green-400 text-sm font-mono rounded-lg p-4">
                         {issue.fix.fix}
                       </div>
                       <button
@@ -225,13 +225,16 @@ export default function Home() {
               </p>
 
               {result.priorityIssue && (
-                <div className="bg-red-50 border border-red-200 rounded-xl p-4 mt-4 mb-6">
-                  <p className="text-sm text-red-600 font-medium mb-1">Fix This First</p>
+                <div className="bg-red-50 border border-red-300 rounded-xl p-4 mt-4 mb-6">
+                  <p className="text-sm font-semibold text-red-700 mb-1">Fix This First</p>
                   <h3 className="font-semibold text-gray-900">
                     {result.priorityIssue.name}
                   </h3>
                   <p className="text-gray-700 text-sm mt-1">
                     {result.priorityIssue.description}
+                  </p>
+                  <p className="text-xs text-red-600 mt-2">
+                    Fixing this will significantly improve your score
                   </p>
                 </div>
               )}
