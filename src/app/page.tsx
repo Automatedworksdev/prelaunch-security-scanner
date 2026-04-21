@@ -149,7 +149,7 @@ export default function Home() {
     if (issues.length === 0) return null;
     return (
       <div className="mb-6 border-t border-gray-200 pt-6 ">
-        <div className="flex items-center gap-1.5 text-sm font-semibold text-gray-700 mt-6 mb-2">
+        <div className="flex items-center gap-2 text-sm font-semibold text-gray-700 mt-6 mb-2">
           <div className={`w-2 h-2 rounded-full ${
             severity === 'critical' ? 'bg-red-600' :
             severity === 'high' ? 'bg-orange-500' :
@@ -162,31 +162,31 @@ export default function Home() {
           {issues.map((issue, i) => {
             const issueId = `${issue.name}-${i}`;
             return (
-              <div key={i} className="bg-white/80 backdrop-blur border border-gray-100 rounded-xl shadow-sm p-4">
+              <div key={i} className="bg-white/90 border border-gray-100 rounded-xl shadow-sm p-3.5">
                 <div className="flex items-center gap-1.5 mb-2">
                   <div className={`w-2 h-2 rounded-full ${
                     issue.severity === 'critical' ? 'bg-red-600' :
                     issue.severity === 'high' ? 'bg-orange-500' :
                     issue.severity === 'medium' ? 'bg-yellow-500' : 'bg-blue-500'
                   }`}></div>
-                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium capitalize ${
                     issue.severity === 'high' ? 'bg-red-50 text-red-600' :
                     issue.severity === 'medium' ? 'bg-yellow-50 text-yellow-600' :
                     issue.severity === 'low' ? 'bg-blue-50 text-blue-600' :
                     'bg-gray-50 text-gray-600'
                   }`}>{issue.severity}</span>
                 </div>
-                <h3 className="text-base font-semibold text-gray-800 mb-1.5">{issue.name}</h3>
-                <p className="text-sm text-gray-600 mb-2">{issue.description}</p>
+                <h3 className="text-base font-semibold text-gray-800 mb-1">{issue.name}</h3>
+                <p className="text-sm text-gray-600 mb-2 leading-relaxed">{issue.description}</p>
                 {issue.fix && (
                   <div className="space-y-1.5">
-                    <div className="text-xs text-gray-500 font-medium mb-1.5">Quick fix</div>
-                    <div className="bg-gray-900 text-green-400 text-sm font-mono rounded-xl px-3 py-2 border border-gray-800/40 overflow-x-auto">
+                    <div className="text-xs text-gray-500 font-medium mb-1">Quick fix</div>
+                    <div className="bg-[#0B1220] text-green-400 text-sm font-mono rounded-xl px-3 py-2 border border-gray-800/40 overflow-x-auto">
                       {issue.fix.fix}
                     </div>
                     <button
                       onClick={() => issue.fix && copyToClipboard(issue.fix.fix, issueId)}
-                      className="mt-2 w-full px-4 py-2 bg-gray-50 text-gray-700 border border-gray-200 text-sm font-medium rounded-xl hover:bg-gray-100 hover:-translate-y-0.5 active:scale-95 transition-all duration-150"
+                      className="mt-2 w-full px-4 py-2 bg-white text-gray-700 border border-gray-200 font-medium rounded-xl hover:bg-gray-50 hover:border-gray-300 hover:-translate-y-0.5 active:scale-95 transition-all duration-150"
                     >
                       {copiedId === issueId ? 'Copied ✓' : 'Copy'}
                     </button>
