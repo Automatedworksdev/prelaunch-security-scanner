@@ -122,9 +122,9 @@ export default function Home() {
     if (issues.length === 0) return null;
     return (
       <div className="mb-8">
-        <div className="flex items-center gap-2 mb-4">
-          <span className="text-lg font-semibold text-gray-900 mb-3">{getSeverityIcon(severity)} {severity.charAt(0).toUpperCase() + severity.slice(1)} Issues</span>
-          <span className="bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full text-sm">{issues.length}</span>
+        <div className="flex items-center gap-3 mb-4">
+          <span className="text-lg font-semibold text-gray-900">{getSeverityIcon(severity)} {severity.charAt(0).toUpperCase() + severity.slice(1)} Issues</span>
+          <span className="inline-flex items-center justify-center min-w-[24px] h-[24px] bg-gray-100 border border-gray-200 rounded-full text-xs font-semibold text-gray-700">{issues.length}</span>
         </div>
         <div className="space-y-4">
           {issues.map((issue, i) => {
