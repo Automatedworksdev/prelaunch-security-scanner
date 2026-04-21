@@ -135,13 +135,13 @@ export default function Home() {
                   <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ${getSeverityColor(issue.severity)}`}>
                     {getSeverityIcon(issue.severity)} {issue.severity.charAt(0).toUpperCase() + issue.severity.slice(1)}
                   </span>
-                  <h3 className="font-bold text-gray-900 text-lg">{issue.name}</h3>
+                  <h3 className="text-gray-900 font-semibold text-lg">{issue.name}</h3>
                 </div>
-                <p className="text-gray-600 text-sm mb-4">{issue.description}</p>
+                <p className="text-gray-900 text-sm mb-4">{issue.description}</p>
                 {issue.fix && (
                   <div className="space-y-3">
                     <div className="flex items-start gap-2">
-                      <div className="flex-1 bg-gray-100 rounded-lg p-3 font-mono text-sm">
+                      <div className="flex-1 bg-gray-50 border border-gray-200 rounded-lg p-3 font-mono text-gray-800 text-sm">
                         {issue.fix.fix}
                       </div>
                       <button
@@ -151,7 +151,7 @@ export default function Home() {
                         {copiedId === issueId ? 'Copied!' : 'Copy'}
                       </button>
                     </div>
-                    <p className="text-gray-500 text-sm">
+                    <p className="text-gray-800 text-sm">
                       <span className="font-medium">Where:</span> {issue.fix.where}
                     </p>
                   </div>
@@ -172,7 +172,7 @@ export default function Home() {
           <h1 className="text-4xl font-bold text-gray-900 mb-3">
             PreLaunch Security Scanner
           </h1>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-900 text-lg">
             Instant security scan for your website
           </p>
         </div>
@@ -183,7 +183,7 @@ export default function Home() {
               value={url}
               onChange={(e) => { setUrl(e.target.value); setError(null); }}
               placeholder="Enter website URL (e.g. example.com)"
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-800 placeholder:text-gray-400"
               disabled={loading}
             />
             <button
@@ -246,7 +246,7 @@ export default function Home() {
               <div className="p-10 text-center">
                 <div className="text-green-600 text-5xl mb-4">✓</div>
                 <p className="text-xl font-semibold text-gray-900 mb-2">Your site looks secure</p>
-                <p className="text-gray-600">No major security issues detected</p>
+                <p className="text-gray-900">No major security issues detected</p>
               </div>
             )}
 
