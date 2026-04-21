@@ -266,10 +266,9 @@ export default function Home() {
                  result.score >= 50 ? 'Below average — your site is vulnerable to common attacks' :
                  'At risk — your site is missing key protections'}
               </p>
-              <p className="text-xs text-gray-400">Most websites score under 60</p>
               
               {/* Engagement hook */}
-              <p className="text-sm text-gray-500 mt-3">Can you get this to 90?</p>
+              <p className="text-xs text-gray-400 mt-2">Can you get this to 90?</p>
 
               {result.priorityIssue && (
                 <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 mt-4 mb-6">
@@ -301,7 +300,7 @@ export default function Home() {
                 <div className="mt-3 text-sm text-green-600">✓ Copied to clipboard</div>
               )}
               <p className="text-sm text-gray-500 mt-2 text-center">
-                Show your score publicly — most sites fail basic security checks
+                Most websites fail this test — see how yours compares
               </p>
             </div>
 
