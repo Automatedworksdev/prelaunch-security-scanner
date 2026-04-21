@@ -35,6 +35,32 @@ export default function Home() {
   const [result, setResult] = useState<ScanResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [shareCopied, setShareCopied] = useState(false);
+
+  const shareScore = async () => {
+    if (!result) return;
+    const message = `I just scanned my website security score: ${result.score}/100 on PreLaunch Scanner. Check yours: https://prelaunch-scanner.vercel.app`;
+    
+    // Try native share first (mobile)
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Website Security Score',
+          text: message,
+          url: 'https://prelaunch-scanner.vercel.app',
+        });
+        return;
+      } catch {
+        // User cancelled or share failed, fall back to clipboard
+      }
+    }
+    
+    // Copy to clipboard
+    navigator.clipboard.writeText(message).then(() => {
+      setShareCopied(true);
+      setTimeout(() => setShareCopied(false), 2000);
+    });
+  };
 
   const getSeverityIcon = (severity: string) => {
     switch (severity) {
@@ -242,6 +268,17 @@ export default function Home() {
               <div className="text-sm text-gray-500 mt-4">
                 Scanned: {scannedUrl}
               </div>
+
+              <button
+                onClick={shareScore}
+                className="w-full sm:w-auto mt-6 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg transition-all"
+              >
+                📤 Share My Score
+              </button>
+
+              {shareCopied && (
+                <div className="mt-3 text-sm text-green-600">✓ Copied to clipboard</div>
+              )}
             </div>
 
             {result.issues.length > 0 ? (
