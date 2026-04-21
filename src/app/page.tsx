@@ -299,9 +299,6 @@ export default function Home() {
               {shareCopied && (
                 <div className="mt-3 text-sm text-green-600">✓ Copied to clipboard</div>
               )}
-              <p className="text-sm text-gray-500 mt-2 text-center">
-                Most websites fail this test — see how yours compares
-              </p>
             </div>
 
             {result.issues.length > 0 ? (
