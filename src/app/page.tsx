@@ -134,7 +134,7 @@ export default function Home() {
   const copyToClipboard = (text: string, issueId: string) => {
     navigator.clipboard.writeText(text).then(() => {
       setCopiedId(issueId);
-      setTimeout(() => setCopiedId(null), 2000);
+      setTimeout(() => setCopiedId(null), 1500);
     });
   };
 
@@ -149,43 +149,43 @@ export default function Home() {
     if (issues.length === 0) return null;
     return (
       <div className="mb-8">
-        <div className="flex items-center gap-2 text-base font-semibold text-gray-900 mb-3">
-          <div className={`w-3 h-3 rounded-full ${
+        <div className="flex items-center gap-1.5 text-sm font-semibold text-gray-700 mb-3">
+          <div className={`w-2.5 h-2.5 rounded-full ${
             severity === 'critical' ? 'bg-red-600' :
             severity === 'high' ? 'bg-orange-500' :
             severity === 'medium' ? 'bg-yellow-500' : 'bg-blue-500'
           }`}></div>
           <span>{severity.charAt(0).toUpperCase() + severity.slice(1)} Issues</span>
-          <span className="text-gray-500 font-medium">— {issues.length} {issues.length === 1 ? 'issue' : 'issues'}</span>
+          <span className="text-gray-500 text-sm font-normal">— {issues.length} {issues.length === 1 ? 'issue' : 'issues'}</span>
         </div>
-        <div className="space-y-4">
+        <div className="space-y-3">
           {issues.map((issue, i) => {
             const issueId = `${issue.name}-${i}`;
             return (
-              <div key={i} className="bg-white border border-gray-200 rounded-xl shadow-md p-5">
-                <div className="flex items-center gap-2 mb-2">
+              <div key={i} className="bg-white border border-gray-200 rounded-xl shadow-sm p-4">
+                <div className="flex items-center gap-1.5 mb-2">
                   <div className={`w-2 h-2 rounded-full ${
                     issue.severity === 'critical' ? 'bg-red-600' :
                     issue.severity === 'high' ? 'bg-orange-500' :
                     issue.severity === 'medium' ? 'bg-yellow-500' : 'bg-blue-500'
                   }`}></div>
-                  <span className="text-sm font-medium text-gray-600 capitalize">{issue.severity}</span>
+                  <span className="text-xs font-medium text-gray-500 capitalize">{issue.severity}</span>
                 </div>
                 <h3 className="text-base font-semibold text-gray-900 mb-2">{issue.name}</h3>
-                <p className="text-sm text-gray-600 mb-4">{issue.description}</p>
+                <p className="text-sm text-gray-600 mb-3">{issue.description}</p>
                 {issue.fix && (
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <div className="text-xs uppercase tracking-wide text-gray-400 mb-2">Fix (copy and apply)</div>
-                    <div className="bg-gray-900 text-green-400 text-sm font-mono rounded-lg p-4">
+                    <div className="bg-gray-900 text-green-400 text-xs font-mono rounded-lg p-3 border border-gray-800/40">
                       {issue.fix.fix}
                     </div>
                     <button
                       onClick={() => issue.fix && copyToClipboard(issue.fix.fix, issueId)}
-                      className="mt-2 w-full px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors"
+                      className="mt-2 w-full px-4 py-2 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600 transition-colors"
                     >
-                      {copiedId === issueId ? 'Copied!' : 'Copy'}
+                      {copiedId === issueId ? 'Copied ✓' : 'Copy'}
                     </button>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-xs text-gray-400 mt-1">
                       <span className="font-medium">Where:</span> {issue.fix.where}
                     </p>
                   </div>
@@ -278,7 +278,7 @@ export default function Home() {
 
               <button
                 onClick={shareScore}
-                className="w-full mt-6 px-6 py-3 bg-gray-900 hover:bg-black text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all"
+                className="w-full mt-5 px-6 py-3 bg-gray-900 hover:bg-black text-white text-base font-semibold rounded-lg shadow-sm hover:shadow-md transition-all"
               >
                 📤 Share My Score
               </button>
@@ -292,7 +292,7 @@ export default function Home() {
             </div>
 
             {result.issues.length > 0 ? (
-              <div className="p-8">
+              <div className="p-6">
                 {groupedIssues && (
                   <>
                     {renderIssueSection('critical', groupedIssues.critical)}
@@ -302,7 +302,7 @@ export default function Home() {
                   </>
                 )}
 
-                <div className="mt-8 pt-6 border-t">
+                <div className="mt-6 pt-5 border-t">
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
                     <p className="text-blue-800">🔧 Fix these issues to improve your score and protect users</p>
                   </div>
