@@ -148,9 +148,9 @@ export default function Home() {
   const renderIssueSection = (severity: string, issues: Issue[]) => {
     if (issues.length === 0) return null;
     return (
-      <div className="mb-6 border-t border-gray-200 pt-6 first:border-t-0 first:pt-0">
-        <div className="flex items-center gap-1.5 text-sm font-semibold text-gray-700 mb-3">
-          <div className={`w-2.5 h-2.5 rounded-full ${
+      <div className="mb-6 border-t border-gray-200 pt-6 ">
+        <div className="flex items-center gap-1.5 text-sm font-semibold text-gray-700 mt-6 mb-2">
+          <div className={`w-2 h-2 rounded-full ${
             severity === 'critical' ? 'bg-red-600' :
             severity === 'high' ? 'bg-orange-500' :
             severity === 'medium' ? 'bg-yellow-500' : 'bg-blue-500'
@@ -162,33 +162,36 @@ export default function Home() {
           {issues.map((issue, i) => {
             const issueId = `${issue.name}-${i}`;
             return (
-              <div key={i} className="bg-white border border-gray-200 rounded-xl shadow-sm p-4">
+              <div key={i} className="bg-white/80 backdrop-blur border border-gray-100 rounded-xl shadow-sm p-4">
                 <div className="flex items-center gap-1.5 mb-2">
                   <div className={`w-2 h-2 rounded-full ${
                     issue.severity === 'critical' ? 'bg-red-600' :
                     issue.severity === 'high' ? 'bg-orange-500' :
                     issue.severity === 'medium' ? 'bg-yellow-500' : 'bg-blue-500'
                   }`}></div>
-                  <span className={`text-xs font-medium capitalize ${
-                    issue.severity === 'medium' ? 'text-yellow-600 bg-yellow-50 px-1.5 py-0.5 rounded' : 'text-gray-500'
+                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                    issue.severity === 'high' ? 'bg-red-50 text-red-600' :
+                    issue.severity === 'medium' ? 'bg-yellow-50 text-yellow-600' :
+                    issue.severity === 'low' ? 'bg-blue-50 text-blue-600' :
+                    'bg-gray-50 text-gray-600'
                   }`}>{issue.severity}</span>
                 </div>
-                <h3 className="text-base font-semibold text-gray-900 mb-2">{issue.name}</h3>
-                <p className="text-sm text-gray-600 mb-3">{issue.description}</p>
+                <h3 className="text-base font-semibold text-gray-800 mb-1.5">{issue.name}</h3>
+                <p className="text-sm text-gray-600 mb-2">{issue.description}</p>
                 {issue.fix && (
-                  <div className="space-y-2">
-                    <div className="text-xs text-gray-500 uppercase tracking-wide mb-2">Quick fix</div>
-                    <div className="bg-gray-900 text-green-400 text-xs font-mono rounded-lg p-3 border border-gray-800/40 leading-relaxed overflow-x-auto">
+                  <div className="space-y-1.5">
+                    <div className="text-xs text-gray-500 font-medium mb-1.5">Quick fix</div>
+                    <div className="bg-gray-900 text-green-400 text-sm font-mono rounded-xl px-3 py-2 border border-gray-800/40 overflow-x-auto">
                       {issue.fix.fix}
                     </div>
                     <button
                       onClick={() => issue.fix && copyToClipboard(issue.fix.fix, issueId)}
-                      className="mt-2 w-full px-4 py-2 bg-blue-50 text-blue-600 border border-blue-100 text-sm h-9 rounded-lg hover:bg-blue-100 active:scale-95 transition-all duration-200"
+                      className="mt-2 w-full px-4 py-2 bg-gray-50 text-gray-700 border border-gray-200 text-sm font-medium rounded-xl hover:bg-gray-100 hover:-translate-y-0.5 active:scale-95 transition-all duration-150"
                     >
                       {copiedId === issueId ? 'Copied ✓' : 'Copy'}
                     </button>
-                    <p className="text-xs text-gray-400 mt-1">
-                      <span className="font-medium">Where:</span> {issue.fix.where}
+                    <p className="text-xs text-gray-400 mt-1 leading-relaxed">
+                      Apply via {issue.fix.where}
                     </p>
                   </div>
                 )}
