@@ -190,7 +190,7 @@ export default function Home() {
             <button
               type="submit"
               disabled={loading || !url.trim()}
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="min-w-[140px] px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg whitespace-nowrap"
             >
               {loading ? 'Scanning...' : 'Scan My Site'}
             </button>
