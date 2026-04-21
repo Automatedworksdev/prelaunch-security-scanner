@@ -140,9 +140,7 @@ export default function Home() {
                 <p className="text-gray-900 text-sm my-3">{issue.description}</p>
                 {issue.fix && (
                   <div className="space-y-3">
-                    <div className="space-y-2"
-
-<div className="text-xs text-gray-500 uppercase mb-2">Fix (copy and apply):</div>
+                    <div className="text-xs text-gray-500 uppercase mb-2">Fix (copy and apply):</div>
                     <div className="flex items-start gap-2">
                       <div className="flex-1 bg-black text-green-400 font-mono text-sm p-4 rounded-lg border border-gray-700">
                         {issue.fix.fix}
