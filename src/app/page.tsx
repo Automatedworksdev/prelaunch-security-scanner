@@ -39,15 +39,16 @@ export default function Home() {
 
   const shareScore = async () => {
     if (!result) return;
-    const message = `I just scanned my website security score: ${result.score}/100 on PreLaunch Scanner. Check yours: https://prelaunch-scanner.vercel.app`;
+    const currentUrl = window.location.href;
+    const shareMessage = `My website scored ${result.score}/100 on security. Most sites fail basic checks. Test yours: ${currentUrl}`;
     
-    // Try native share first (mobile)
+    // Use Web Share API if available
     if (navigator.share) {
       try {
         await navigator.share({
           title: 'Website Security Score',
-          text: message,
-          url: 'https://prelaunch-scanner.vercel.app',
+          text: shareMessage,
+          url: currentUrl,
         });
         return;
       } catch {
@@ -55,8 +56,8 @@ export default function Home() {
       }
     }
     
-    // Copy to clipboard
-    navigator.clipboard.writeText(message).then(() => {
+    // Fallback: Copy full message to clipboard
+    navigator.clipboard.writeText(shareMessage).then(() => {
       setShareCopied(true);
       setTimeout(() => setShareCopied(false), 2000);
     });
@@ -148,7 +149,7 @@ export default function Home() {
     if (issues.length === 0) return null;
     return (
       <div className="mb-8">
-        <div className="flex items-center gap-2 text-lg font-semibold text-gray-900">
+        <div className="flex items-center gap-2 text-base font-semibold text-gray-900 mb-3">
           <div className={`w-3 h-3 rounded-full ${
             severity === 'critical' ? 'bg-red-600' :
             severity === 'high' ? 'bg-orange-500' :
@@ -161,23 +162,30 @@ export default function Home() {
           {issues.map((issue, i) => {
             const issueId = `${issue.name}-${i}`;
             return (
-              <div key={i} className="bg-white border border-gray-200 rounded-xl shadow-md p-6">
-
-                <h3 className="text-gray-900 font-semibold">{issue.name}</h3>
-                <p className="text-gray-600 text-sm my-3">{issue.description}</p>
+              <div key={i} className="bg-white border border-gray-200 rounded-xl shadow-md p-5">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className={`w-2 h-2 rounded-full ${
+                    issue.severity === 'critical' ? 'bg-red-600' :
+                    issue.severity === 'high' ? 'bg-orange-500' :
+                    issue.severity === 'medium' ? 'bg-yellow-500' : 'bg-blue-500'
+                  }`}></div>
+                  <span className="text-sm font-medium text-gray-600 capitalize">{issue.severity}</span>
+                </div>
+                <h3 className="text-base font-semibold text-gray-900 mb-2">{issue.name}</h3>
+                <p className="text-sm text-gray-600 mb-4">{issue.description}</p>
                 {issue.fix && (
                   <div className="space-y-3">
-                    <div className="text-xs text-gray-500 uppercase mb-2">Fix (copy and apply):</div>
+                    <div className="text-xs uppercase tracking-wide text-gray-400 mb-2">Fix (copy and apply)</div>
                     <div className="bg-gray-900 text-green-400 text-sm font-mono rounded-lg p-4">
                       {issue.fix.fix}
                     </div>
                     <button
                       onClick={() => issue.fix && copyToClipboard(issue.fix.fix, issueId)}
-                      className="mt-3 w-full px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors"
+                      className="mt-2 w-full px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors"
                     >
                       {copiedId === issueId ? 'Copied!' : 'Copy'}
                     </button>
-                    <p className="text-gray-800 text-sm">
+                    <p className="text-sm text-gray-600">
                       <span className="font-medium">Where:</span> {issue.fix.where}
                     </p>
                   </div>
