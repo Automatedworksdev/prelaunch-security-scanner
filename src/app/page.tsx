@@ -263,18 +263,13 @@ export default function Home() {
               }`}>
                 {result.score >= 85 ? 'Excellent — your site is well protected' :
                  result.score >= 70 ? 'Good — but there\'s room for improvement' :
-                 result.score >= 50 ? 'Below average — your site has noticeable security gaps' :
+                 result.score >= 50 ? 'Below average — your site is vulnerable to common attacks' :
                  'At risk — your site is missing key protections'}
               </p>
-              <p className="text-xs text-gray-400 mb-3">Most websites score under 60</p>
+              <p className="text-xs text-gray-400">Most websites score under 60</p>
               
-              <p className="text-sm text-gray-600">
-                {result.score < 60 
-                  ? "Your site has serious security gaps"
-                  : result.score < 80
-                  ? "Your site needs improvement"
-                  : "Your site is well protected"}
-              </p>
+              {/* Engagement hook */}
+              <p className="text-sm text-gray-500 mt-3">Can you get this to 90?</p>
 
               {result.priorityIssue && (
                 <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 mt-4 mb-6">
