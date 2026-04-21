@@ -181,12 +181,12 @@ export default function Home() {
                 {issue.fix && (
                   <div className="space-y-1.5">
                     <div className="text-xs text-gray-500 font-medium mb-1">Quick fix</div>
-                    <div className="bg-[#0B1220] text-green-400 text-sm font-mono rounded-xl px-3 py-2 border border-gray-800/40 overflow-x-auto">
+                    <div className="bg-[#0B1220] text-green-400 text-sm font-mono rounded-lg px-3 py-2 border border-gray-800/40">
                       {issue.fix.fix}
                     </div>
                     <button
                       onClick={() => issue.fix && copyToClipboard(issue.fix.fix, issueId)}
-                      className="mt-2 w-full px-4 py-2 bg-white text-gray-700 border border-gray-200 font-medium rounded-xl hover:bg-gray-50 hover:border-gray-300 hover:-translate-y-0.5 active:scale-95 transition-all duration-150"
+                      className="mt-2 w-full px-4 py-2 bg-white text-gray-700 border border-gray-200 font-medium rounded-lg hover:bg-gray-50 hover:border-gray-300 hover:shadow-sm active:scale-95 transition-all duration-150"
                     >
                       {copiedId === issueId ? 'Copied ✓' : 'Copy'}
                     </button>
@@ -263,8 +263,8 @@ export default function Home() {
               </p>
 
               {result.priorityIssue && (
-                <div className="bg-red-50 border border-red-400 rounded-xl shadow-sm p-4 mt-4 mb-6">
-                  <p className="text-sm font-semibold text-red-600 mb-1">Fix This First</p>
+                <div className="bg-red-50 border border-red-200 rounded-xl p-4 mt-4 mb-6">
+                  <p className="text-sm font-semibold text-red-700 mb-1">Fix This First</p>
                   <h3 className="font-semibold text-gray-900">
                     {result.priorityIssue.name}
                   </h3>
@@ -309,7 +309,7 @@ export default function Home() {
 
                 <div className="mt-6 pt-5 border-t">
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
-                    <p className="text-blue-800">🔧 Fix these issues to improve your score and protect users</p>
+                    <p className="text-blue-800">Fix these issues to improve your score and protect users</p>
                   </div>
                 </div>
               </div>
