@@ -299,7 +299,7 @@ export default function Home() {
                 onClick={shareScore}
                 className="w-full mt-5 px-6 py-3 bg-gray-900 hover:bg-black text-white text-base font-semibold rounded-lg shadow-sm hover:shadow-md transition-all"
               >
-                📤 Share My Score
+                Share your security score
               </button>
 
               {shareCopied && (
@@ -337,7 +337,7 @@ export default function Home() {
 
             <div className="p-6 bg-gray-50 border-t">
               <button onClick={handleReset} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl py-3 active:scale-95 transition-all duration-150">
-                Scan another site
+                Scan a new website
               </button>
             </div>
           </div>
