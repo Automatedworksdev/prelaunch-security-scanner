@@ -169,7 +169,7 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-2xl mx-auto">
 
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-3">
             Scan Your Website for Security Issues in Seconds
           </h1>
@@ -184,7 +184,7 @@ export default function Home() {
               value={url}
               onChange={(e) => { setUrl(e.target.value); setError(null); }}
               placeholder="Enter website URL (e.g. example.com)"
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-800 placeholder:text-gray-400"
+              className="flex-1 px-5 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 text-base placeholder:text-gray-400"
               disabled={loading}
             />
             <button
@@ -192,7 +192,7 @@ export default function Home() {
               disabled={loading || !url.trim()}
               className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
             >
-              {loading ? 'Scanning...' : 'Scan'}
+              {loading ? 'Scanning...' : 'Scan My Site'}
             </button>
           </form>
         </div>
