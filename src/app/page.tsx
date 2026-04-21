@@ -179,7 +179,7 @@ export default function Home() {
         </div>
 
         <div className="bg-white rounded-xl shadow-md border-2 border-gray-300 p-6 mb-8">
-          <form onSubmit={handleSubmit} className="flex gap-3">
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
             <input
               value={url}
               onChange={(e) => { setUrl(e.target.value); setError(null); }}
@@ -190,7 +190,7 @@ export default function Home() {
             <button
               type="submit"
               disabled={loading || !url.trim()}
-              className="min-w-[140px] px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg whitespace-nowrap"
+              className="w-full sm:w-auto min-w-[140px] px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg whitespace-nowrap"
             >
               {loading ? 'Scanning...' : 'Scan My Site'}
             </button>
