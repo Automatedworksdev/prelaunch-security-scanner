@@ -184,7 +184,7 @@ export default function Home() {
               value={url}
               onChange={(e) => { setUrl(e.target.value); setError(null); }}
               placeholder="Enter website URL (e.g. example.com)"
-              className="flex-1 px-5 py-4 border-2 border-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 text-lg placeholder:text-gray-500 bg-white shadow-sm"
+              className="flex-1 px-5 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 text-lg placeholder:text-gray-500 bg-white transition-all duration-200"
               disabled={loading}
             />
             <button
