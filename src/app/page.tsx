@@ -184,17 +184,20 @@ export default function Home() {
               value={url}
               onChange={(e) => { setUrl(e.target.value); setError(null); }}
               placeholder="Enter website URL (e.g. example.com)"
-              className="flex-1 px-5 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 text-base placeholder:text-gray-400"
+              className="flex-1 px-5 py-4 border border-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 text-base placeholder:text-gray-500"
               disabled={loading}
             />
             <button
               type="submit"
               disabled={loading || !url.trim()}
-              className="w-full sm:w-auto min-w-[140px] px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg whitespace-nowrap"
+              className="w-full sm:w-auto min-w-[140px] px-6 py-3.5 bg-blue-600 hover:bg-blue-700 active:scale-95 active:bg-blue-800 text-white font-medium rounded-lg whitespace-nowrap transition-transform"
             >
-              {loading ? 'Scanning...' : 'Scan My Site'}
+              {loading ? 'Scanning...' : 'Scan My Site Free'}
             </button>
           </form>
+          <div className="text-sm text-gray-500 text-center mt-3">
+            Checks SSL, headers &amp; vulnerabilities in seconds
+          </div>
         </div>
 
         {error && (
