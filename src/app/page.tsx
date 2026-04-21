@@ -157,12 +157,15 @@ export default function Home() {
             const issueId = `${issue.name}-${i}`;
             return (
               <div key={i} className="bg-white border-2 border-gray-300 shadow-md p-6 rounded-xl">
-                <div className="flex items-start gap-3 mb-3">
-                  <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ${getSeverityColor(issue.severity)}`}>
-                    {getSeverityIcon(issue.severity)} {issue.severity.charAt(0).toUpperCase() + issue.severity.slice(1)}
-                  </span>
-                  <h3 className="text-gray-900 font-bold text-lg">{issue.name}</h3>
+                <div className="flex items-center gap-2 mb-2">
+                  <div className={`w-2.5 h-2.5 rounded-full ${
+                    issue.severity === 'critical' ? 'bg-red-600' :
+                    issue.severity === 'high' ? 'bg-orange-500' :
+                    issue.severity === 'medium' ? 'bg-yellow-500' : 'bg-blue-500'
+                  }`}></div>
+                  <span className="text-sm font-medium text-gray-700 capitalize">{issue.severity}</span>
                 </div>
+                <h3 className="text-gray-900 font-bold text-lg">{issue.name}</h3>
                 <p className="text-gray-600 text-sm my-3">{issue.description}</p>
                 {issue.fix && (
                   <div className="space-y-3">
