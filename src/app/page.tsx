@@ -253,8 +253,22 @@ export default function Home() {
               <div className={`text-7xl font-bold mb-2 ${getScoreColor(result.score)}`}>
                 {result.score}
               </div>
-              <div className="text-lg text-gray-500 mb-4">Security Score</div>
-              <p className="text-sm text-gray-600 mt-2">
+              <div className="text-lg text-gray-500 mb-2">Security Score</div>
+              
+              {/* Score status message */}
+              <p className={`text-sm font-medium mb-1 ${
+                result.score >= 85 ? 'text-green-600' :
+                result.score >= 70 ? 'text-yellow-600' :
+                result.score >= 50 ? 'text-orange-600' : 'text-red-600'
+              }`}>
+                {result.score >= 85 ? 'Excellent — your site is well protected' :
+                 result.score >= 70 ? 'Good — but there\'s room for improvement' :
+                 result.score >= 50 ? 'Below average — your site has noticeable security gaps' :
+                 'At risk — your site is missing key protections'}
+              </p>
+              <p className="text-xs text-gray-400 mb-3">Most websites score under 60</p>
+              
+              <p className="text-sm text-gray-600">
                 {result.score < 60 
                   ? "Your site has serious security gaps"
                   : result.score < 80
