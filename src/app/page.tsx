@@ -161,31 +161,22 @@ export default function Home() {
           {issues.map((issue, i) => {
             const issueId = `${issue.name}-${i}`;
             return (
-              <div key={i} className="bg-white border-2 border-gray-300 shadow-md p-6 rounded-xl">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className={`w-2.5 h-2.5 rounded-full ${
-                    issue.severity === 'critical' ? 'bg-red-600' :
-                    issue.severity === 'high' ? 'bg-orange-500' :
-                    issue.severity === 'medium' ? 'bg-yellow-500' : 'bg-blue-500'
-                  }`}></div>
-                  <span className="text-sm font-medium text-gray-700 capitalize">{issue.severity}</span>
-                </div>
-                <h3 className="text-gray-900 font-bold text-lg">{issue.name}</h3>
+              <div key={i} className="bg-white border border-gray-200 rounded-xl shadow-md p-6">
+
+                <h3 className="text-gray-900 font-semibold">{issue.name}</h3>
                 <p className="text-gray-600 text-sm my-3">{issue.description}</p>
                 {issue.fix && (
                   <div className="space-y-3">
                     <div className="text-xs text-gray-500 uppercase mb-2">Fix (copy and apply):</div>
-                    <div className="flex items-start gap-2">
-                      <div className="bg-gray-900 text-green-400 text-sm font-mono rounded-lg p-4">
-                        {issue.fix.fix}
-                      </div>
-                      <button
-                        onClick={() => issue.fix && copyToClipboard(issue.fix.fix, issueId)}
-                        className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors"
-                      >
-                        {copiedId === issueId ? 'Copied!' : 'Copy'}
-                      </button>
+                    <div className="bg-gray-900 text-green-400 text-sm font-mono rounded-lg p-4">
+                      {issue.fix.fix}
                     </div>
+                    <button
+                      onClick={() => issue.fix && copyToClipboard(issue.fix.fix, issueId)}
+                      className="mt-3 w-full px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors"
+                    >
+                      {copiedId === issueId ? 'Copied!' : 'Copy'}
+                    </button>
                     <p className="text-gray-800 text-sm">
                       <span className="font-medium">Where:</span> {issue.fix.where}
                     </p>
@@ -268,7 +259,7 @@ export default function Home() {
                     {result.priorityIssue.description}
                   </p>
                   <p className="text-xs text-red-600 mt-2">
-                    Fixing this will significantly improve your score
+                    Fixing this could increase your score by up to +20 points
                   </p>
                 </div>
               )}
@@ -279,7 +270,7 @@ export default function Home() {
 
               <button
                 onClick={shareScore}
-                className="w-full sm:w-auto mt-6 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg transition-all"
+                className="w-full mt-6 px-6 py-3 bg-gray-900 hover:bg-black text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all"
               >
                 📤 Share My Score
               </button>
