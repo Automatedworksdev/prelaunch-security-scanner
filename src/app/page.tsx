@@ -178,13 +178,13 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-md border-2 border-gray-300 p-6 mb-8">
+        <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 mb-8">
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
             <input
               value={url}
               onChange={(e) => { setUrl(e.target.value); setError(null); }}
               placeholder="Enter website URL (e.g. example.com)"
-              className="flex-1 px-5 py-4 border border-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 text-base placeholder:text-gray-500"
+              className="flex-1 px-5 py-4 border-2 border-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 text-lg placeholder:text-gray-500 bg-white shadow-sm"
               disabled={loading}
             />
             <button
