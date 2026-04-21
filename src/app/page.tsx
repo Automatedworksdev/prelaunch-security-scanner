@@ -148,7 +148,7 @@ export default function Home() {
   const renderIssueSection = (severity: string, issues: Issue[]) => {
     if (issues.length === 0) return null;
     return (
-      <div className="mb-6 border-t border-gray-200 pt-6 ">
+      <div className="mb-4 border-t border-gray-200 pt-6 ">
         <div className="flex items-center gap-2 text-sm font-semibold text-gray-700 mt-6 mb-2">
           <div className={`w-1.5 h-1.5 rounded-full ${
             severity === 'critical' ? 'bg-red-600' :
@@ -162,7 +162,7 @@ export default function Home() {
           {issues.map((issue, i) => {
             const issueId = `${issue.name}-${i}`;
             return (
-              <div key={i} className="bg-white border border-gray-100 rounded-xl shadow-sm p-3.5">
+              <div key={i} className="bg-white border border-gray-100 rounded-xl shadow-sm p-3.5 hover:shadow-sm transition-shadow">
                 <div className="flex items-center gap-1.5 mb-2">
                   <div className={`w-1.5 h-1.5 rounded-full ${
                     issue.severity === 'critical' ? 'bg-red-600' :
@@ -179,14 +179,14 @@ export default function Home() {
                 <h3 className="text-base font-semibold text-gray-800 mb-1">{issue.name}</h3>
                 <p className="text-sm text-gray-600 mb-2 leading-relaxed">{issue.description}</p>
                 {issue.fix && (
-                  <div className="space-y-2">
+                  <div className="space-y-1.5">
                     <div className="text-xs text-gray-500 font-medium mb-1">Quick fix</div>
-                    <div className="bg-[#0F172A] text-green-300 text-xs font-mono rounded-lg px-2.5 py-1.5 border border-gray-800/40">
+                    <div className="bg-[#0F172A] text-green-300 text-xs font-mono rounded-lg px-2.5 py-1.5 border border-gray-800/40 mb-2">
                       {issue.fix.fix}
                     </div>
                     <button
                       onClick={() => issue.fix && copyToClipboard(issue.fix.fix, issueId)}
-                      className="mt-2 w-full px-4 py-2 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800 active:scale-95 transition-all duration-150"
+                      className="mt-1 w-full px-4 py-2 bg-gray-100 text-gray-800 border border-gray-200 font-medium rounded-lg hover:bg-gray-200 active:scale-95 transition-all duration-150"
                     >
                       {copiedId === issueId ? 'Copied ✓' : 'Copy'}
                     </button>
