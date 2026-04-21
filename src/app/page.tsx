@@ -148,7 +148,7 @@ export default function Home() {
   const renderIssueSection = (severity: string, issues: Issue[]) => {
     if (issues.length === 0) return null;
     return (
-      <div className="mb-8">
+      <div className="mb-6 border-t border-gray-200 pt-6 first:border-t-0 first:pt-0">
         <div className="flex items-center gap-1.5 text-sm font-semibold text-gray-700 mb-3">
           <div className={`w-2.5 h-2.5 rounded-full ${
             severity === 'critical' ? 'bg-red-600' :
@@ -169,23 +169,25 @@ export default function Home() {
                     issue.severity === 'high' ? 'bg-orange-500' :
                     issue.severity === 'medium' ? 'bg-yellow-500' : 'bg-blue-500'
                   }`}></div>
-                  <span className="text-xs font-medium text-gray-500 capitalize">{issue.severity}</span>
+                  <span className={`text-xs font-medium capitalize ${
+                    issue.severity === 'medium' ? 'text-yellow-600 bg-yellow-50 px-1.5 py-0.5 rounded' : 'text-gray-500'
+                  }`}>{issue.severity}</span>
                 </div>
                 <h3 className="text-base font-semibold text-gray-900 mb-2">{issue.name}</h3>
                 <p className="text-sm text-gray-600 mb-3">{issue.description}</p>
                 {issue.fix && (
                   <div className="space-y-2">
-                    <div className="text-xs uppercase tracking-wide text-gray-400 mb-2">Fix (copy and apply)</div>
+                    <div className="text-xs text-gray-500 uppercase tracking-wide mb-2">Quick fix</div>
                     <div className="bg-gray-900 text-green-400 text-xs font-mono rounded-lg p-3 border border-gray-800/40 leading-relaxed overflow-x-auto">
                       {issue.fix.fix}
                     </div>
                     <button
                       onClick={() => issue.fix && copyToClipboard(issue.fix.fix, issueId)}
-                      className="mt-2 w-full px-4 py-2 bg-blue-500/90 text-white text-sm rounded-lg shadow-sm hover:bg-blue-500 active:scale-95 transition-all duration-200"
+                      className="mt-2 w-full px-4 py-2 bg-blue-50 text-blue-600 border border-blue-100 text-sm h-9 rounded-lg hover:bg-blue-100 active:scale-95 transition-all duration-200"
                     >
                       {copiedId === issueId ? 'Copied ✓' : 'Copy'}
                     </button>
-                    <p className="text-xs text-gray-400 mt-1 leading-relaxed">
+                    <p className="text-xs text-gray-400 mt-1">
                       <span className="font-medium">Where:</span> {issue.fix.where}
                     </p>
                   </div>
