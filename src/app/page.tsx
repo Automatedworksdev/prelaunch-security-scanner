@@ -153,7 +153,7 @@ export default function Home() {
           <div className={`w-1.5 h-1.5 rounded-full ${
             severity === 'critical' ? 'bg-red-600' :
             severity === 'high' ? 'bg-red-500' :
-            severity === 'medium' ? 'bg-amber-500' : 'bg-slate-400'
+            severity === 'medium' ? 'bg-amber-500' : 'bg-blue-400'
           }`}></div>
           <span>{severity.charAt(0).toUpperCase() + severity.slice(1)} Issues</span>
           <span className="text-gray-500 text-sm font-normal">— {issues.length} {issues.length === 1 ? 'issue' : 'issues'}</span>
@@ -167,12 +167,12 @@ export default function Home() {
                   <div className={`w-1.5 h-1.5 rounded-full ${
                     issue.severity === 'critical' ? 'bg-red-600' :
                     issue.severity === 'high' ? 'bg-red-500' :
-                    issue.severity === 'medium' ? 'bg-amber-500' : 'bg-slate-400'
+                    issue.severity === 'medium' ? 'bg-amber-500' : 'bg-blue-400'
                   }`}></div>
                   <span className={`text-xs px-2 py-0.5 rounded-full font-medium capitalize ${
                     issue.severity === 'high' ? 'bg-red-50 text-red-600' :
                     issue.severity === 'medium' ? 'bg-amber-50 text-amber-600' :
-                    issue.severity === 'low' ? 'bg-slate-100 text-slate-600' :
+                    issue.severity === 'low' ? 'bg-blue-50 text-blue-600' :
                     'bg-gray-50 text-gray-600'
                   }`}>{issue.severity}</span>
                 </div>
