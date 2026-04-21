@@ -152,8 +152,8 @@ export default function Home() {
         <div className="flex items-center gap-2 text-sm font-semibold text-gray-700 mt-6 mb-2">
           <div className={`w-1.5 h-1.5 rounded-full ${
             severity === 'critical' ? 'bg-red-600' :
-            severity === 'high' ? 'bg-orange-500' :
-            severity === 'medium' ? 'bg-yellow-500' : 'bg-blue-500'
+            severity === 'high' ? 'bg-red-500' :
+            severity === 'medium' ? 'bg-amber-500' : 'bg-slate-500'
           }`}></div>
           <span>{severity.charAt(0).toUpperCase() + severity.slice(1)} Issues</span>
           <span className="text-gray-500 text-sm font-normal">— {issues.length} {issues.length === 1 ? 'issue' : 'issues'}</span>
