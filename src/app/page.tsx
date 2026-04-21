@@ -268,10 +268,10 @@ export default function Home() {
               </p>
               
               {/* Engagement hook */}
-              <p className="text-xs text-gray-400 mt-2">Can you get this to 90?</p>
+              <p className="text-sm text-gray-500 font-medium mt-3">Can you get this to 90?</p>
 
               {result.priorityIssue && (
-                <div className="bg-red-50 border border-red-200 rounded-xl p-4 mt-4 mb-6">
+                <div className="bg-amber-50 border border-amber-100 rounded-xl p-4 mt-4 mb-6">
                   <p className="text-sm font-semibold text-red-700 mb-1">Fix This First</p>
                   <h3 className="font-semibold text-gray-900">
                     {result.priorityIssue.name}
