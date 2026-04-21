@@ -123,25 +123,28 @@ export default function Home() {
     return (
       <div className="mb-8">
         <div className="flex items-center gap-2 mb-4">
-          <span className="text-lg font-semibold">{getSeverityIcon(severity)} {severity.charAt(0).toUpperCase() + severity.slice(1)} Issues</span>
+          <span className="text-lg font-semibold text-gray-900 mb-3">{getSeverityIcon(severity)} {severity.charAt(0).toUpperCase() + severity.slice(1)} Issues</span>
           <span className="bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full text-sm">{issues.length}</span>
         </div>
         <div className="space-y-4">
           {issues.map((issue, i) => {
             const issueId = `${issue.name}-${i}`;
             return (
-              <div key={i} className="bg-white border border-gray-200 rounded-lg p-5">
+              <div key={i} className="bg-white border-2 border-gray-300 shadow-md p-6 rounded-xl">
                 <div className="flex items-start gap-3 mb-3">
                   <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ${getSeverityColor(issue.severity)}`}>
                     {getSeverityIcon(issue.severity)} {issue.severity.charAt(0).toUpperCase() + issue.severity.slice(1)}
                   </span>
-                  <h3 className="text-gray-900 font-semibold text-lg">{issue.name}</h3>
+                  <h3 className="text-gray-900 font-bold text-lg">{issue.name}</h3>
                 </div>
-                <p className="text-gray-900 text-sm mb-4">{issue.description}</p>
+                <p className="text-gray-900 text-sm my-3">{issue.description}</p>
                 {issue.fix && (
                   <div className="space-y-3">
+                    <div className="space-y-2"
+
+<div className="text-xs text-gray-500 uppercase mb-2">Fix (copy and apply):</div>
                     <div className="flex items-start gap-2">
-                      <div className="flex-1 bg-gray-50 border border-gray-200 rounded-lg p-3 font-mono text-gray-800 text-sm">
+                      <div className="flex-1 bg-black text-green-400 font-mono text-sm p-4 rounded-lg border border-gray-700">
                         {issue.fix.fix}
                       </div>
                       <button
@@ -170,14 +173,14 @@ export default function Home() {
 
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-3">
-            PreLaunch Security Scanner
+            Scan Your Website for Security Issues in Seconds
           </h1>
           <p className="text-gray-900 text-lg">
-            Instant security scan for your website
+            Find vulnerabilities and fix them instantly
           </p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
+        <div className="bg-white rounded-xl shadow-md border-2 border-gray-300 p-6 mb-8">
           <form onSubmit={handleSubmit} className="flex gap-3">
             <input
               value={url}
