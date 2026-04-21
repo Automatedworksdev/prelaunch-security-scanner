@@ -171,10 +171,10 @@ export default function Home() {
 
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-3">
-            Scan Your Website for Security Issues in Seconds
+            Your Website Might Be Exposing Users — Check Now
           </h1>
           <p className="text-gray-900 text-lg">
-            Find vulnerabilities and fix them instantly
+            Most sites miss critical security headers. Scan yours in seconds.
           </p>
         </div>
 
@@ -198,6 +198,9 @@ export default function Home() {
           <div className="text-sm text-gray-500 text-center mt-3">
             Checks SSL, headers &amp; vulnerabilities in seconds
           </div>
+          <p className="text-xs text-gray-400 text-center mt-2">
+            No signup required • Instant results
+          </p>
         </div>
 
         {error && (
