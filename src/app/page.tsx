@@ -171,8 +171,8 @@ export default function Home() {
                   }`}></div>
                   <span className={`text-xs px-2 py-0.5 rounded-full font-medium capitalize ${
                     issue.severity === 'high' ? 'bg-red-50 text-red-600' :
-                    issue.severity === 'medium' ? 'bg-yellow-50 text-yellow-600' :
-                    issue.severity === 'low' ? 'bg-blue-50 text-blue-600' :
+                    issue.severity === 'medium' ? 'bg-amber-50 text-amber-600' :
+                    issue.severity === 'low' ? 'bg-slate-50 text-slate-600' :
                     'bg-gray-50 text-gray-600'
                   }`}>{issue.severity}</span>
                 </div>
@@ -271,15 +271,15 @@ export default function Home() {
               <p className="text-xs text-gray-400 mt-2">Can you get this to 90?</p>
 
               {result.priorityIssue && (
-                <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 mt-4 mb-6">
-                  <p className="text-sm font-semibold text-orange-700 mb-1">Fix This First</p>
+                <div className="bg-red-50 border border-red-200 rounded-xl p-4 mt-4 mb-6">
+                  <p className="text-sm font-semibold text-red-700 mb-1">Fix This First</p>
                   <h3 className="font-semibold text-gray-900">
                     {result.priorityIssue.name}
                   </h3>
                   <p className="text-gray-700 text-sm mt-1">
                     {result.priorityIssue.description}
                   </p>
-                  <p className="text-xs text-orange-600 mt-2">
+                  <p className="text-xs text-red-600 mt-2">
                     Fixing this could increase your score by up to +20 points
                   </p>
                 </div>
