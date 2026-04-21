@@ -166,8 +166,8 @@ export default function Home() {
                 <div className="flex items-center gap-1.5 mb-2">
                   <div className={`w-1.5 h-1.5 rounded-full ${
                     issue.severity === 'critical' ? 'bg-red-600' :
-                    issue.severity === 'high' ? 'bg-orange-500' :
-                    issue.severity === 'medium' ? 'bg-yellow-500' : 'bg-blue-500'
+                    issue.severity === 'high' ? 'bg-red-500' :
+                    issue.severity === 'medium' ? 'bg-amber-500' : 'bg-slate-500'
                   }`}></div>
                   <span className={`text-xs px-2 py-0.5 rounded-full font-medium capitalize ${
                     issue.severity === 'high' ? 'bg-red-50 text-red-600' :
