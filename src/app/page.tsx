@@ -76,7 +76,7 @@ export default function Home() {
     switch (severity) {
       case 'critical': return 'bg-red-100 text-red-800 border-red-300';
       case 'high': return 'bg-orange-100 text-orange-800 border-orange-300';
-      case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-300';
+      case 'medium': return 'bg-yellow-50 text-yellow-600 border-yellow-400';
       case 'low': return 'bg-blue-100 text-blue-800 border-blue-300';
       default: return 'bg-gray-100 text-gray-800 border-gray-300';
     }
@@ -163,7 +163,7 @@ export default function Home() {
                   </span>
                   <h3 className="text-gray-900 font-bold text-lg">{issue.name}</h3>
                 </div>
-                <p className="text-gray-900 text-sm my-3">{issue.description}</p>
+                <p className="text-gray-600 text-sm my-3">{issue.description}</p>
                 {issue.fix && (
                   <div className="space-y-3">
                     <div className="text-xs text-gray-500 uppercase mb-2">Fix (copy and apply):</div>
