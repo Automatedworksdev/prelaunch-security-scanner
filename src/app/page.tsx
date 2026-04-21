@@ -250,8 +250,8 @@ export default function Home() {
               </p>
 
               {result.priorityIssue && (
-                <div className="bg-red-50 border border-red-300 rounded-xl p-4 mt-4 mb-6">
-                  <p className="text-sm font-semibold text-red-700 mb-1">Fix This First</p>
+                <div className="bg-red-50 border border-red-400 rounded-xl shadow-sm p-4 mt-4 mb-6">
+                  <p className="text-sm font-semibold text-red-600 mb-1">Fix This First</p>
                   <h3 className="font-semibold text-gray-900">
                     {result.priorityIssue.name}
                   </h3>
@@ -278,6 +278,9 @@ export default function Home() {
               {shareCopied && (
                 <div className="mt-3 text-sm text-green-600">✓ Copied to clipboard</div>
               )}
+              <p className="text-sm text-gray-500 mt-2 text-center">
+                Show your score publicly — most sites fail basic security checks
+              </p>
             </div>
 
             {result.issues.length > 0 ? (
