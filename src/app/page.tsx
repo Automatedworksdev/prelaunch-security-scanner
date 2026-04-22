@@ -186,9 +186,19 @@ export default function Home() {
                     </div>
                     <button
                       onClick={() => issue.fix && copyToClipboard(issue.fix.fix, issueId)}
-                      className="mt-1 w-full px-4 py-2 bg-white text-gray-800 border border-gray-300 font-medium rounded-lg hover:bg-gray-100 active:scale-95 transition-all duration-150"
+                      className="mt-1 w-full px-4 py-2 bg-white text-gray-900 border border-gray-300 font-medium rounded-md hover:bg-gray-100 active:scale-95 transition-all duration-150 flex items-center justify-center gap-2"
                     >
-                      {copiedId === issueId ? 'Copied ✓' : 'Copy'}
+                      {copiedId === issueId ? (
+                        <>
+                          <span>Copied</span>
+                          <span>✓</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>📋</span>
+                          <span>Copy</span>
+                        </>
+                      )}
                     </button>
                     <p className="text-xs text-gray-400 mt-1 leading-relaxed">
                       Apply via {issue.fix.where}
