@@ -290,7 +290,7 @@ export default function Home() {
                     {result.priorityIssue.description}
                   </p>
                   <p className="text-xs text-red-600 mt-2">
-                    Fixing this could increase your score by up to <strong className="text-blue-600">+20 points</strong>
+                    Fixing this could increase your score by up to <strong className="text-amber-600">+20 points</strong>
                   </p>
                 </div>
               )}
