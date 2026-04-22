@@ -186,7 +186,7 @@ export default function Home() {
                     </div>
                     <button
                       onClick={() => issue.fix && copyToClipboard(issue.fix.fix, issueId)}
-                      className="mt-1 w-full px-4 py-2 bg-gray-50 text-gray-900 border border-gray-300 font-medium rounded-lg hover:bg-gray-100 active:bg-gray-200 active:scale-95 transition-all duration-150"
+                      className="mt-1 w-full px-4 py-2 bg-white text-gray-800 border border-gray-300 font-medium rounded-lg hover:bg-gray-100 active:scale-95 transition-all duration-150"
                     >
                       {copiedId === issueId ? 'Copied ✓' : 'Copy'}
                     </button>
