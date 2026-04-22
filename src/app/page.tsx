@@ -304,7 +304,7 @@ export default function Home() {
                 onClick={shareScore}
                 className="w-full mt-5 px-6 py-3 bg-gray-900 hover:bg-black text-white text-base font-semibold rounded-lg shadow-sm hover:shadow-md transition-all"
               >
-                Fix these issues
+                Fix this for me
               </button>
 
               {shareCopied && (
