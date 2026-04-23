@@ -37,6 +37,7 @@ export default function Home() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [shareCopied, setShareCopied] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [unlocked, setUnlocked] = useState(false);
 
   const shareScore = async () => {
     if (!result) return;
@@ -96,6 +97,7 @@ export default function Home() {
     setScannedUrl('');
     setResult(null);
     setError(null);
+    setUnlocked(false);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -314,12 +316,48 @@ export default function Home() {
 
             {result.issues.length > 0 ? (
               <div className="p-6">
-                {groupedIssues && (
+                {/* Always show Fix This First */}
+                {result.priorityIssue && (
+                  <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6">
+                    <p className="text-sm font-semibold text-red-700 mb-1">Fix This First</p>
+                    <h3 className="font-semibold text-gray-900">{result.priorityIssue.name}</h3>
+                    <p className="text-gray-700 text-sm mt-1">{result.priorityIssue.description}</p>
+                    {result.priorityIssue.fix && (
+                      <div className="mt-3 space-y-1.5">
+                        <div className="text-xs text-gray-500 font-medium">Quick fix</div>
+                        <div className="bg-[#0F172A] text-green-300 text-xs font-mono rounded-lg px-2.5 py-1.5 border border-gray-800/40">
+                          {result.priorityIssue.fix.fix}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Locked section */}
+                {!unlocked ? (
+                  <div className="bg-gray-50 border border-gray-200 rounded-xl p-6 text-center">
+                    <div className="text-3xl mb-3">🔒</div>
+                    <h3 className="font-semibold text-gray-900 mb-2">More issues found</h3>
+                    <p className="text-sm text-gray-600 mb-4">
+                      Unlock your full security report to see all issues and fixes
+                    </p>
+                    <button
+                      onClick={() => setUnlocked(true)}
+                      className="w-full px-6 py-3 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-colors"
+                    >
+                      Unlock full report (£4.99)
+                    </button>
+                  </div>
+                ) : (
                   <>
-                    {renderIssueSection('critical', groupedIssues.critical)}
-                    {renderIssueSection('high', groupedIssues.high)}
-                    {renderIssueSection('medium', groupedIssues.medium)}
-                    {renderIssueSection('low', groupedIssues.low)}
+                    {groupedIssues && (
+                      <>
+                        {renderIssueSection('critical', groupedIssues.critical)}
+                        {renderIssueSection('high', groupedIssues.high)}
+                        {renderIssueSection('medium', groupedIssues.medium)}
+                        {renderIssueSection('low', groupedIssues.low)}
+                      </>
+                    )}
                   </>
                 )}
 
