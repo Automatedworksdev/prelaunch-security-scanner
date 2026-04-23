@@ -349,14 +349,14 @@ export default function Home() {
         {showModal && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowModal(false)}>
             <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6" onClick={e => e.stopPropagation()}>
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Want us to fix this for you?</h2>
+              <h2 className="text-xl font-bold text-gray-900 mb-4">Fix your site safely</h2>
               <p className="text-gray-600 mb-4">
-                We'll implement these security fixes on your site safely and improve your score to 80–90+
+                We'll implement these security fixes for you and improve your score to 80–90+
               </p>
               <ul className="space-y-2 mb-6">
                 <li className="flex items-start gap-2 text-sm text-gray-700">
                   <span className="text-green-500">✓</span>
-                  <span>We apply all headers correctly</span>
+                  <span>We handle all technical setup</span>
                 </li>
                 <li className="flex items-start gap-2 text-sm text-gray-700">
                   <span className="text-green-500">✓</span>
@@ -364,21 +364,23 @@ export default function Home() {
                 </li>
                 <li className="flex items-start gap-2 text-sm text-gray-700">
                   <span className="text-green-500">✓</span>
-                  <span>Works with your hosting setup</span>
+                  <span>Works with your hosting</span>
                 </li>
               </ul>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
               <button
                 onClick={() => alert('Request submitted! We will contact you soon.')}
-                className="w-full px-6 py-3 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-colors mb-2">
-                Fix this for me
+                className="w-full px-6 py-3 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-colors mb-3">
+                Get my fix plan
               </button>
-              <p className="text-xs text-gray-400 text-center mb-4">
-                Fast turnaround • No technical work needed
-              </p>
               <button
                 onClick={() => setShowModal(false)}
-                className="w-full px-4 py-2 text-gray-500 hover:text-gray-700 transition-colors">
-                Close
+                className="w-full px-4 py-2 text-gray-500 hover:text-gray-700 transition-colors text-sm">
+                Maybe later
               </button>
             </div>
           </div>
