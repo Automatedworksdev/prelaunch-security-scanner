@@ -302,9 +302,9 @@ export default function Home() {
                   <p className="text-gray-700 text-sm mt-1">
                     {result.priorityIssue.description}
                   </p>
-                  <p className="text-xs text-red-600 mt-2">
-                    Fixing this could increase your score by up to <strong className="text-amber-600">+20 points</strong>
-                  </p>
+                  <div className="mt-3 bg-red-50 border border-red-100 rounded-lg p-3">
+                    <p className="text-sm text-red-700 font-medium">🔒 This issue is still exposing your site<br/>Unlock to fix it</p>
+                  </div>
                 </div>
               )}
 
@@ -319,32 +319,17 @@ export default function Home() {
 
             {result.issues.length > 0 ? (
               <div className="p-6">
-                {/* Always show Fix This First - LOCKED, no fix code */}
-                {result.priorityIssue && (
-                  <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6">
-                    <p className="text-sm font-semibold text-red-700 mb-1">Fix This First</p>
-                    <h3 className="font-semibold text-gray-900">{result.priorityIssue.name}</h3>
-                    <p className="text-gray-700 text-sm mt-1">{result.priorityIssue.description}</p>
-                    <div className="mt-3 bg-red-50 border border-red-100 rounded-lg p-3">
-                      <p className="text-sm text-red-700">🔒 Fix hidden — unlock to secure your site</p>
-                    </div>
-                  </div>
-                )}
 
-                {/* Locked section - Strong Paywall */}
                 {!unlocked ? (
                   <>
                     {/* Tension line */}
                     <div className="mb-4 bg-red-100 border border-red-200 rounded-lg p-3 text-center">
-                      <p className="text-red-700 font-medium">⚠️ Your site is still vulnerable</p>
+                      <p className="text-red-700 font-medium">⚠️ Your site is still at risk</p>
                     </div>
 
                     <div className="bg-red-50 border border-red-200 rounded-xl p-6">
                       <div className="text-2xl mb-2">🔐</div>
-                      <h3 className="text-lg font-bold text-gray-900 mb-2">You are not fully protected yet</h3>
-                      <p className="text-sm text-gray-600 mb-4">
-                        You still have critical issues that leave your site vulnerable.
-                      </p>
+                      <h3 className="text-lg font-bold text-gray-900 mb-2">You still have critical issues that leave your site vulnerable.</h3>
                       {(groupedIssues?.critical?.length || 0) + (groupedIssues?.high?.length || 0) + (groupedIssues?.medium?.length || 0) > 0 && (
                         <div className="mb-4 text-sm text-gray-700">
                           <p className="font-medium mb-1">You still have:</p>
@@ -379,10 +364,13 @@ export default function Home() {
                         onClick={() => setUnlocked(true)}
                         className="w-full px-6 py-3 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-colors mb-2"
                       >
-                        Fix all issues (£4.99)
+                        Fix my site (£4.99)
                       </button>
                       <p className="text-xs text-gray-500 text-center">
                         Takes under 2 minutes to fix everything
+                      </p>
+                      <p className="text-xs text-gray-400 text-center mt-2">
+                        Most sites fail these checks before launch
                       </p>
                     </div>
                   </>
@@ -398,12 +386,6 @@ export default function Home() {
                     )}
                   </>
                 )}
-
-                <div className="mt-6 pt-5 border-t">
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
-                    <p className="text-blue-800">Fix these issues to improve your score and protect users</p>
-                  </div>
-                </div>
               </div>
             ) : (
               <div className="p-10 text-center">
