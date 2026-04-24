@@ -331,7 +331,8 @@ export default function Home() {
                       <div className="text-2xl mb-2">🔐</div>
                       <h3 className="text-lg font-bold text-gray-900 mb-2">Your site has critical security issues that expose it to attacks.</h3>
                       <div className="mb-4 text-sm text-gray-700">
-                        <p className="font-medium mb-1">We found issues affecting your site:</p>
+                        <p className="text-sm text-gray-600 mb-2">Before launch, you need to fix:</p>
+                        <p className="font-medium mb-1">Your site currently has:</p>
                         <ul className="space-y-1">
                           <li>• {(groupedIssues?.critical?.length || 0) + (groupedIssues?.high?.length || 0)} high (critical risk)</li>
                           <li>• {groupedIssues?.medium?.length || 0} medium</li>
@@ -362,7 +363,7 @@ export default function Home() {
                         onClick={() => setUnlocked(true)}
                         className="w-full px-6 py-3 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-colors mb-2"
                       >
-                        Fix my site instantly (£4.99)
+                        Fix my site before launch (£4.99)
                       </button>
                       <p className="text-xs text-gray-500 text-center mb-1">
                         Fix this before you launch
