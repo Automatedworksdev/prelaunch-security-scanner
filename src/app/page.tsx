@@ -329,7 +329,7 @@ export default function Home() {
 
                     <div className="bg-red-50 border border-red-200 rounded-xl p-6">
                       <div className="text-2xl mb-2">🔐</div>
-                      <h3 className="text-lg font-bold text-gray-900 mb-2">Your site still has critical security issues that could break or expose it after launch.</h3>
+                      <h3 className="text-lg font-bold text-gray-900 mb-2">Your site has critical security issues that could expose it after launch.</h3>
                       <div className="mb-4 text-sm text-gray-700">
                         <p className="font-medium mb-1">We found issues affecting your site:</p>
                         <ul className="space-y-1">
@@ -339,7 +339,7 @@ export default function Home() {
                         </ul>
                       </div>
                       <p className="text-sm text-red-600 font-medium mb-4">
-                        If you launch like this, your site is vulnerable from day one.
+                        If you launch like this, your site is exposed from day one.
                       </p>
                       <div className="mb-4">
                         <p className="text-sm font-medium text-gray-700 mb-2">Fix everything now to:</p>
@@ -355,17 +355,20 @@ export default function Home() {
                           </li>
                         </ul>
                       </div>
+                      <p className="text-xs text-gray-500 text-center mb-1">
+                        Takes under 2 minutes — no coding needed
+                      </p>
+                      <p className="text-xs text-gray-400 text-center mb-4">
+                        We generate everything for you — just copy and paste
+                      </p>
                       <button
                         onClick={() => setUnlocked(true)}
                         className="w-full px-6 py-3 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-colors mb-2"
                       >
-                        Fix my site before launch (£4.99)
+                        Fix my site now (£4.99)
                       </button>
-                      <p className="text-xs text-gray-500 text-center">
-                        Takes under 2 minutes — no coding needed
-                      </p>
-                      <p className="text-xs text-gray-400 text-center mt-2">
-                        Most sites fail these checks — even experienced developers
+                      <p className="text-xs text-gray-400 text-center">
+                        One-time payment • No subscription
                       </p>
                     </div>
                   </>
