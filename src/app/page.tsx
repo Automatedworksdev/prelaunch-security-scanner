@@ -324,39 +324,34 @@ export default function Home() {
                   <>
                     {/* Tension line */}
                     <div className="mb-4 bg-red-100 border border-red-200 rounded-lg p-3 text-center">
-                      <p className="text-red-700 font-medium">⚠️ Your site is still at risk</p>
+                      <p className="text-red-700 font-medium">⚠️ Your site is not ready to launch</p>
                     </div>
 
                     <div className="bg-red-50 border border-red-200 rounded-xl p-6">
                       <div className="text-2xl mb-2">🔐</div>
-                      <h3 className="text-lg font-bold text-gray-900 mb-2">You still have critical issues that leave your site vulnerable.</h3>
-                      {(groupedIssues?.critical?.length || 0) + (groupedIssues?.high?.length || 0) + (groupedIssues?.medium?.length || 0) > 0 && (
-                        <div className="mb-4 text-sm text-gray-700">
-                          <p className="font-medium mb-1">You still have:</p>
-                          <ul className="space-y-1">
-                            {(groupedIssues?.critical?.length || 0) > 0 && (
-                              <li>• {groupedIssues!.critical.length} critical {groupedIssues!.critical.length === 1 ? 'issue' : 'issues'}</li>
-                            )}
-                            {(groupedIssues?.high?.length || 0) > 0 && (
-                              <li>• {groupedIssues!.high.length} high {groupedIssues!.high.length === 1 ? 'issue' : 'issues'}</li>
-                            )}
-                            {(groupedIssues?.medium?.length || 0) > 0 && (
-                              <li>• {groupedIssues!.medium.length} medium {groupedIssues!.medium.length === 1 ? 'issue' : 'issues'}</li>
-                            )}
-                          </ul>
-                        </div>
-                      )}
+                      <h3 className="text-lg font-bold text-gray-900 mb-2">Your site still has critical security issues that could break or expose it after launch.</h3>
+                      <div className="mb-4 text-sm text-gray-700">
+                        <p className="font-medium mb-1">We found issues affecting your site:</p>
+                        <ul className="space-y-1">
+                          <li>• {(groupedIssues?.critical?.length || 0) + (groupedIssues?.high?.length || 0)} high (critical risk)</li>
+                          <li>• {groupedIssues?.medium?.length || 0} medium</li>
+                          <li>• {groupedIssues?.low?.length || 0} low</li>
+                        </ul>
+                      </div>
+                      <p className="text-sm text-red-600 font-medium mb-4">
+                        If you launch like this, your site is vulnerable from day one.
+                      </p>
                       <div className="mb-4">
-                        <p className="text-sm font-medium text-gray-700 mb-2">Fix everything to:</p>
+                        <p className="text-sm font-medium text-gray-700 mb-2">Fix everything now to:</p>
                         <ul className="space-y-1 text-sm text-gray-600">
                           <li className="flex items-center gap-2">
                             <span className="text-green-500">✔</span> Reach 90+ security score
                           </li>
                           <li className="flex items-center gap-2">
-                            <span className="text-green-500">✔</span> Prevent common attacks
+                            <span className="text-green-500">✔</span> Block common attacks automatically
                           </li>
                           <li className="flex items-center gap-2">
-                            <span className="text-green-500">✔</span> Launch with confidence
+                            <span className="text-green-500">✔</span> Launch without risk or surprises
                           </li>
                         </ul>
                       </div>
@@ -364,13 +359,13 @@ export default function Home() {
                         onClick={() => setUnlocked(true)}
                         className="w-full px-6 py-3 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-colors mb-2"
                       >
-                        Fix my site (£4.99)
+                        Fix my site before launch (£4.99)
                       </button>
                       <p className="text-xs text-gray-500 text-center">
-                        Takes under 2 minutes to fix everything
+                        Takes under 2 minutes — no coding needed
                       </p>
                       <p className="text-xs text-gray-400 text-center mt-2">
-                        Most sites fail these checks before launch
+                        Most sites fail these checks — even experienced developers
                       </p>
                     </div>
                   </>
