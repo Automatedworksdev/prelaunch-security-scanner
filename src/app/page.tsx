@@ -291,7 +291,7 @@ export default function Home() {
               </p>
               
               {/* Engagement hook */}
-              <p className="text-sm text-gray-500 font-medium mt-3">Can you get this to 90?</p>
+              <p className="text-sm font-medium mt-3 text-gray-700">Fix all issues to reach 90+ (recommended before launch)</p>
 
               {result.priorityIssue && (
                 <div className="bg-amber-50 border border-amber-100 rounded-xl p-4 mt-4 mb-6">
@@ -311,13 +311,6 @@ export default function Home() {
               <div className="text-sm text-gray-500 mt-4">
                 Scanned: {scannedUrl}
               </div>
-
-              <button
-                onClick={shareScore}
-                className="w-full mt-5 px-6 py-3 bg-gray-900 hover:bg-black text-white text-base font-semibold rounded-lg shadow-sm hover:shadow-md transition-all"
-              >
-                Fix this for me
-              </button>
 
               {shareCopied && (
                 <div className="mt-3 text-sm text-green-600">✓ Copied to clipboard</div>
