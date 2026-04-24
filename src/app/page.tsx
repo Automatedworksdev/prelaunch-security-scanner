@@ -332,6 +332,7 @@ export default function Home() {
                       <h3 className="text-lg font-bold text-gray-900 mb-2">Your site has critical security issues that expose it to attacks.</h3>
                       <div className="mb-4 text-sm text-gray-700">
                         <p className="text-sm text-gray-600 mb-2">Before launch, you need to fix:</p>
+                        <p className="text-xs text-red-600 font-medium mb-2">⚠️ These issues are live right now</p>
                         <ul className="space-y-1">
                           <li>• {(groupedIssues?.critical?.length || 0) + (groupedIssues?.high?.length || 0)} high (critical risk)</li>
                           <li>• {groupedIssues?.medium?.length || 0} medium</li>
@@ -339,7 +340,7 @@ export default function Home() {
                         </ul>
                       </div>
                       <p className="text-sm text-red-700 font-semibold mb-4">
-                        Launching like this leaves your site vulnerable from day one.
+                        Your site is vulnerable right now — launching will make it worse.
                       </p>
                       <div className="mb-4">
                         <p className="text-sm font-medium text-gray-700 mb-2">Fix everything now to:</p>
@@ -362,10 +363,10 @@ export default function Home() {
                         onClick={() => setUnlocked(true)}
                         className="w-full px-6 py-3 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-colors mb-2"
                       >
-                        Fix my site before launch (£4.99)
+                        Fix my site instantly (£4.99)
                       </button>
                       <p className="text-xs text-gray-500 text-center mb-1">
-                        Fix this before you launch
+                        Secure your site in 2 minutes
                       </p>
                       <p className="text-xs text-gray-400 text-center">
                         One-time payment • No subscription
