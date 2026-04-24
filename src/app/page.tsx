@@ -319,57 +319,33 @@ export default function Home() {
 
             {result.issues.length > 0 ? (
               <div className="p-6">
-                {/* Always show Fix This First */}
+                {/* Always show Fix This First - LOCKED, no fix code */}
                 {result.priorityIssue && (
                   <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6">
                     <p className="text-sm font-semibold text-red-700 mb-1">Fix This First</p>
                     <h3 className="font-semibold text-gray-900">{result.priorityIssue.name}</h3>
                     <p className="text-gray-700 text-sm mt-1">{result.priorityIssue.description}</p>
-                    {result.priorityIssue.fix && (
-                      <div className="mt-3 space-y-1.5">
-                        <div className="text-xs text-gray-500 font-medium">Quick fix</div>
-                        <div className="bg-[#0F172A] text-green-300 text-xs font-mono rounded-lg px-2.5 py-1.5 border border-gray-800/40">
-                          {result.priorityIssue.fix.fix}
-                        </div>
-                      </div>
-                    )}
+                    <div className="mt-3 bg-red-50 border border-red-100 rounded-lg p-3">
+                      <p className="text-sm text-red-700">🔒 Fix hidden — unlock to secure your site</p>
+                    </div>
                   </div>
                 )}
 
-                {/* Locked section */}
+                {/* Locked section - Strong Paywall */}
                 {!unlocked ? (
-                  <div className="bg-gray-50 border border-gray-200 rounded-xl p-6 text-center">
-                    <div className="text-3xl mb-3">🔒</div>
-                    <h3 className="font-semibold text-gray-900 mb-2">More issues found</h3>
-                    <p className="text-sm text-gray-600 mb-4">
-                      Unlock your full security report to see all issues and fixes
-                    </p>
-                    <button
-                      onClick={() => setUnlocked(true)}
-                      className="w-full px-6 py-3 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-colors"
-                    >
-                      Unlock full report (£4.99)
-                    </button>
-                  </div>
-                ) : (
                   <>
-                    {groupedIssues && (
-                      <>
-                        {renderIssueSection('critical', groupedIssues.critical)}
-                        {renderIssueSection('high', groupedIssues.high)}
-                        {renderIssueSection('medium', groupedIssues.medium)}
-                        {renderIssueSection('low', groupedIssues.low)}
-                      </>
-                    )}
+                    {/* Tension line */}
+                    <div className="mb-4 bg-red-100 border border-red-200 rounded-lg p-3 text-center">
+                      <p className="text-red-700 font-medium">⚠️ Your site is still vulnerable</p>
+                    </div>
 
-                    {/* Paywall Section */}
-                    <div className="mt-8 bg-red-50 border border-red-200 rounded-xl p-6">
+                    <div className="bg-red-50 border border-red-200 rounded-xl p-6">
                       <div className="text-2xl mb-2">🔐</div>
                       <h3 className="text-lg font-bold text-gray-900 mb-2">You are not fully protected yet</h3>
                       <p className="text-sm text-gray-600 mb-4">
-                        You still have important issues that leave your site vulnerable.
+                        You still have critical issues that leave your site vulnerable.
                       </p>
-                      {(groupedIssues?.critical.length || 0) + (groupedIssues?.high.length || 0) + (groupedIssues?.medium.length || 0) > 0 && (
+                      {(groupedIssues?.critical?.length || 0) + (groupedIssues?.high?.length || 0) + (groupedIssues?.medium?.length || 0) > 0 && (
                         <div className="mb-4 text-sm text-gray-700">
                           <p className="font-medium mb-1">You still have:</p>
                           <ul className="space-y-1">
@@ -409,6 +385,17 @@ export default function Home() {
                         Takes under 2 minutes to fix everything
                       </p>
                     </div>
+                  </>
+                ) : (
+                  <>
+                    {groupedIssues && (
+                      <>
+                        {renderIssueSection('critical', groupedIssues.critical)}
+                        {renderIssueSection('high', groupedIssues.high)}
+                        {renderIssueSection('medium', groupedIssues.medium)}
+                        {renderIssueSection('low', groupedIssues.low)}
+                      </>
+                    )}
                   </>
                 )}
 
