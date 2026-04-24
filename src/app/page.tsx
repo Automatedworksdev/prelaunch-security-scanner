@@ -329,7 +329,7 @@ export default function Home() {
 
                     <div className="bg-red-50 border border-red-200 rounded-xl p-6">
                       <div className="text-2xl mb-2">🔐</div>
-                      <h3 className="text-lg font-bold text-gray-900 mb-2">Your site has critical security issues that could expose it after launch.</h3>
+                      <h3 className="text-lg font-bold text-gray-900 mb-2">Your site has critical security issues that could expose it.</h3>
                       <div className="mb-4 text-sm text-gray-700">
                         <p className="font-medium mb-1">We found issues affecting your site:</p>
                         <ul className="space-y-1">
@@ -338,7 +338,7 @@ export default function Home() {
                           <li>• {groupedIssues?.low?.length || 0} low</li>
                         </ul>
                       </div>
-                      <p className="text-sm text-red-600 font-medium mb-4">
+                      <p className="text-sm text-red-700 font-semibold mb-4">
                         If you launch like this, your site is exposed from day one.
                       </p>
                       <div className="mb-4">
@@ -348,24 +348,21 @@ export default function Home() {
                             <span className="text-green-500">✔</span> Reach 90+ security score
                           </li>
                           <li className="flex items-center gap-2">
-                            <span className="text-green-500">✔</span> Block common attacks automatically
+                            <span className="text-green-500">✔</span> Block common attacks
                           </li>
                           <li className="flex items-center gap-2">
-                            <span className="text-green-500">✔</span> Launch without risk or surprises
+                            <span className="text-green-500">✔</span> Launch with confidence
                           </li>
                         </ul>
                       </div>
-                      <p className="text-xs text-gray-500 text-center mb-1">
+                      <p className="text-xs text-gray-500 text-center mb-4">
                         Takes under 2 minutes — no coding needed
-                      </p>
-                      <p className="text-xs text-gray-400 text-center mb-4">
-                        We generate everything for you — just copy and paste
                       </p>
                       <button
                         onClick={() => setUnlocked(true)}
                         className="w-full px-6 py-3 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-colors mb-2"
                       >
-                        Fix my site now (£4.99)
+                        Fix my site instantly (£4.99)
                       </button>
                       <p className="text-xs text-gray-400 text-center">
                         One-time payment • No subscription
