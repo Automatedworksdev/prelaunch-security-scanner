@@ -368,6 +368,54 @@ export default function Home() {
                         {renderIssueSection('low', groupedIssues.low)}
                       </>
                     )}
+
+                    {/* Paywall Section */}
+                    <div className="mt-8 bg-red-50 border border-red-200 rounded-xl p-6">
+                      <div className="text-2xl mb-2">🔐</div>
+                      <h3 className="text-lg font-bold text-gray-900 mb-2">You are not fully protected yet</h3>
+                      <p className="text-sm text-gray-600 mb-4">
+                        You still have important issues that leave your site vulnerable.
+                      </p>
+                      {(groupedIssues?.critical.length || 0) + (groupedIssues?.high.length || 0) + (groupedIssues?.medium.length || 0) > 0 && (
+                        <div className="mb-4 text-sm text-gray-700">
+                          <p className="font-medium mb-1">You still have:</p>
+                          <ul className="space-y-1">
+                            {(groupedIssues?.critical?.length || 0) > 0 && (
+                              <li>• {groupedIssues!.critical.length} critical {groupedIssues!.critical.length === 1 ? 'issue' : 'issues'}</li>
+                            )}
+                            {(groupedIssues?.high?.length || 0) > 0 && (
+                              <li>• {groupedIssues!.high.length} high {groupedIssues!.high.length === 1 ? 'issue' : 'issues'}</li>
+                            )}
+                            {(groupedIssues?.medium?.length || 0) > 0 && (
+                              <li>• {groupedIssues!.medium.length} medium {groupedIssues!.medium.length === 1 ? 'issue' : 'issues'}</li>
+                            )}
+                          </ul>
+                        </div>
+                      )}
+                      <div className="mb-4">
+                        <p className="text-sm font-medium text-gray-700 mb-2">Fix everything to:</p>
+                        <ul className="space-y-1 text-sm text-gray-600">
+                          <li className="flex items-center gap-2">
+                            <span className="text-green-500">✔</span> Reach 90+ security score
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <span className="text-green-500">✔</span> Prevent common attacks
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <span className="text-green-500">✔</span> Launch with confidence
+                          </li>
+                        </ul>
+                      </div>
+                      <button
+                        onClick={() => setUnlocked(true)}
+                        className="w-full px-6 py-3 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-colors mb-2"
+                      >
+                        Fix all issues (£4.99)
+                      </button>
+                      <p className="text-xs text-gray-500 text-center">
+                        Takes under 2 minutes to fix everything
+                      </p>
+                    </div>
                   </>
                 )}
 
