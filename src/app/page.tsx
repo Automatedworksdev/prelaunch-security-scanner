@@ -181,10 +181,13 @@ export default function Home() {
                 </div>
                 <h3 className="text-base font-semibold text-gray-800 mb-1">{issue.name}</h3>
                 <p className="text-sm text-gray-600 mb-2 leading-relaxed">{issue.description}</p>
-                {issue.fix && issue.severity === 'low' && (
-                  <div className="space-y-1.5">
-                    <div className="text-xs text-gray-500 font-medium mb-1">Quick fix</div>
-                    <div className="bg-[#0F172A] text-green-300 text-xs font-mono rounded-lg px-2.5 py-1.5 border border-gray-800/40 mb-2">
+                {issue.fix && (
+                  <div className="mt-3 space-y-2">
+                    <div className="text-xs text-gray-500 font-medium mb-1">Where to fix this</div>
+                    <div className="text-xs text-gray-600 bg-gray-50 rounded-lg px-3 py-2 border border-gray-200">
+                      {issue.fix.where}
+                    </div>
+                    <div className="bg-[#0F172A] text-green-300 text-xs font-mono rounded-lg px-2.5 py-1.5 border border-gray-800/40">
                       {issue.fix.fix}
                     </div>
                     <button
@@ -203,8 +206,12 @@ export default function Home() {
                         </>
                       )}
                     </button>
-                    <p className="text-xs text-gray-400 mt-1 leading-relaxed">
-                      Apply via {issue.fix.where}
+                    <div className="text-xs text-gray-500 space-y-0.5">
+                      <p>✅ Safe to apply — won't break your site</p>
+                      <p>⏱ Takes under 2 minutes</p>
+                    </div>
+                    <p className="text-xs text-gray-400 mt-2">
+                      Not sure where to add this? Google: "how to add headers in [your platform]"
                     </p>
                   </div>
                 )}
