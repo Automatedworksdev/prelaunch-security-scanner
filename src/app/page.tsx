@@ -367,7 +367,7 @@ export default function Home() {
                         Takes under 2 minutes — no coding needed
                       </p>
                       <button
-                        onClick={() => setUnlocked(true)}
+                        onClick={() => window.location.href = 'https://buy.stripe.com/test_7sYdRbgjb6sUe61eZU3Je00'}
                         className="w-full px-6 py-3 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-colors mb-2"
                       >
                         Fix my site instantly (£4.99)
