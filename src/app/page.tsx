@@ -367,13 +367,13 @@ export default function Home() {
                         Takes under 2 minutes — no coding needed
                       </p>
                       <button
-                        onClick={() => window.location.href = 'https://buy.stripe.com/test_7sYdRbgjb6sUe61eZU3Je00'}
+                        onClick={() => setUnlocked(true)}
                         className="w-full px-6 py-3 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-colors mb-2"
                       >
-                        Fix my site instantly (£4.99)
+                        Unlock full report (Free during beta)
                       </button>
                       <p className="text-xs text-gray-500 text-center mb-1">
-                        Secure your site in 2 minutes
+                        £4.99 when we launch — free for early users
                       </p>
                       <p className="text-xs text-gray-400 text-center">
                         One-time payment • No subscription
