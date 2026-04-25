@@ -49,13 +49,31 @@ export default function Home() {
     }
   }, []);
 
+  // Analytics counters in localStorage
+  const incrementCounter = (key: string) => {
+    const current = parseInt(localStorage.getItem(key) || '0');
+    localStorage.setItem(key, (current + 1).toString());
+  };
+
+  const getCounter = (key: string) => {
+    return parseInt(localStorage.getItem(key) || '0');
+  };
+
+  // Check for stats view
+  const showStats = typeof window !== 'undefined' && window.location.search.includes('stats=true');
+
+  // Track visit on page load
+  useEffect(() => {
+    incrementCounter('visits_count');
+  }, []);
+
   const handlePayment = () => {
-    // Show checkout instead of unlocking immediately
+    incrementCounter('cta_clicks_count');
     setShowCheckout(true);
   };
 
   const confirmPayment = () => {
-    // Simulate payment completion
+    incrementCounter('checkout_confirms_count');
     setTestMode(true);
     setUnlocked(true);
     setShowCheckout(false);
@@ -498,6 +516,16 @@ export default function Home() {
                 Test mode — no payment required
               </p>
             </div>
+          </div>
+        )}
+
+        {/* Stats Debug Panel */}
+        {showStats && (
+          <div className="fixed bottom-4 right-4 bg-white border border-gray-200 rounded-lg shadow-lg p-3 text-xs z-50">
+            <p className="font-semibold text-gray-700 mb-1">Analytics</p>
+            <p>Visits: {getCounter('visits_count')}</p>
+            <p>CTA Clicks: {getCounter('cta_clicks_count')}</p>
+            <p>Checkout Confirms: {getCounter('checkout_confirms_count')}</p>
           </div>
         )}
 
