@@ -39,6 +39,7 @@ export default function Home() {
   const [showModal, setShowModal] = useState(false);
   const [unlocked, setUnlocked] = useState(false);
   const [testMode, setTestMode] = useState(false);
+  const [showCheckout, setShowCheckout] = useState(false);
 
   // Check for free unlock via URL parameter
   useEffect(() => {
@@ -49,9 +50,15 @@ export default function Home() {
   }, []);
 
   const handlePayment = () => {
-    // Simulate payment in test mode
+    // Show checkout instead of unlocking immediately
+    setShowCheckout(true);
+  };
+
+  const confirmPayment = () => {
+    // Simulate payment completion
     setTestMode(true);
     setUnlocked(true);
+    setShowCheckout(false);
   };
 
   const shareScore = async () => {
@@ -466,6 +473,30 @@ export default function Home() {
                 className="w-full px-4 py-2 text-gray-500 hover:text-gray-700 transition-colors text-sm">
                 Maybe later
               </button>
+            </div>
+          </div>
+        )}
+
+        {/* Checkout Modal */}
+        {showCheckout && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowCheckout(false)}>
+            <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6" onClick={e => e.stopPropagation()}>
+              <h2 className="text-xl font-bold text-gray-900 mb-4">Secure checkout</h2>
+              <div className="bg-gray-50 rounded-lg p-4 mb-4">
+                <p className="text-lg font-semibold text-gray-900">£4.99 — one-time payment</p>
+              </div>
+              <p className="text-sm text-gray-500 text-center mb-6">
+                Takes under 2 minutes • No subscription
+              </p>
+              <button
+                onClick={confirmPayment}
+                className="w-full px-6 py-3 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-colors mb-3"
+              >
+                Confirm and unlock fixes
+              </button>
+              <p className="text-xs text-gray-400 text-center">
+                Test mode — no payment required
+              </p>
             </div>
           </div>
         )}
