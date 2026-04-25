@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface Fix {
   why: string;
@@ -38,6 +38,21 @@ export default function Home() {
   const [shareCopied, setShareCopied] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [unlocked, setUnlocked] = useState(false);
+  const [testMode, setTestMode] = useState(false);
+
+  // Check for free unlock via URL parameter
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('free') === 'true') {
+      setUnlocked(true);
+    }
+  }, []);
+
+  const handlePayment = () => {
+    // Simulate payment in test mode
+    setTestMode(true);
+    setUnlocked(true);
+  };
 
   const shareScore = async () => {
     if (!result) return;
@@ -366,14 +381,19 @@ export default function Home() {
                       <p className="text-xs text-gray-500 text-center mb-4">
                         Takes under 2 minutes — no coding needed
                       </p>
+                      {testMode && (
+                        <div className="bg-amber-100 border border-amber-200 rounded-lg p-2 mb-3 text-center">
+                          <p className="text-xs text-amber-700">Test mode — payment simulated</p>
+                        </div>
+                      )}
                       <button
-                        onClick={() => setUnlocked(true)}
+                        onClick={handlePayment}
                         className="w-full px-6 py-3 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-colors mb-2"
                       >
-                        Unlock full report (Free during beta)
+                        Fix my site instantly (£4.99)
                       </button>
                       <p className="text-xs text-gray-500 text-center mb-1">
-                        £4.99 when we launch — free for early users
+                        Secure your site in 2 minutes
                       </p>
                       <p className="text-xs text-gray-400 text-center">
                         One-time payment • No subscription
